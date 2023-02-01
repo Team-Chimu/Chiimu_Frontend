@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Landing.css';
+import './SignUp.css';
 
-function Landing() {
+function SignUp() {
 
     // hook to redirect
     let navigate = useNavigate();
 
-    // variables for email and password
+    // variables for email, password, and name
     // values are update when text fields change
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
 
-    // calls /login/signin endpoint
-    // if information is correct, signs user in
-    // and calls checkAuth()
-    function signIn() {
+    // calls /login/signup endpoint
+    // if there are no conflicts, signs up user,
+    // logs user in, and redirects to home page
+    function signUp() {
         const requestOptions = {
             credentials: 'include',
             method: 'POST',
@@ -23,13 +24,14 @@ function Landing() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: email, password: password })
+            body: JSON.stringify({ email: email, password: password, name: name })
         }
-        fetch(`http://localhost:3001/login/signin`, requestOptions)
+        fetch(`http://localhost:3001/login/signup`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    checkAuth();
+                    console.log('successfully signed up and signed in')
+                    navigate('/home');
                 } else {
                     console.log(data.error);
                 }
@@ -47,7 +49,7 @@ function Landing() {
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    console.log('successfully logged in');
+                    console.log('already logged in');
                     navigate('/home');
                 } else {
                     console.log(data.error)
@@ -55,20 +57,19 @@ function Landing() {
             })
     }
 
-    // calls checkAuth() on load to navigate to /home
     useEffect(() => {
         checkAuth();
     }, [])
 
     return (
         <div>
-            <h1>Landing</h1>
+            <h1>SignUp</h1>
             <input type='text' placeholder='email' onChange={e => setEmail(e.target.value)} />
             <input type='text' placeholder='password' onChange={e => setPassword(e.target.value)} />
-            <button onClick={signIn}>sign in</button>
-            <button onClick={() => navigate('/signup')}>sign up</button>
+            <input type='text' placeholder='name' onChange={e => setName(e.target.value)} />
+            <button onClick={signUp}>sign up</button>
         </div>
     )
 }
 
-export default Landing
+export default SignUp
