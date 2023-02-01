@@ -18,7 +18,11 @@ function signin() {
 }
 
 function checkAuth() {
-  fetch(`http://localhost:3001/api/users/self`)
+  const requestOptions = {
+    credentials: 'include',
+    method: 'GET'
+  }
+  fetch(`http://localhost:3001/api/users/self`, requestOptions)
   .then(res => res.json())
   .then(data => console.log(data))
 }
