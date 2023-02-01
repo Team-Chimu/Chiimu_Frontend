@@ -37,6 +37,8 @@ function Home() {
             })
     }
 
+    // calls /login/signout endpoint
+    // logs out the user and redirects back to /
     function signOut() {
         const requestOptions = {
             credentials: 'include',
