@@ -25,11 +25,13 @@ function Home() {
                     setUserInfo({
                         email: data.email,
                         displayName: data.displayName,
+                        userType: data.userType,
                         admin: data.admin,
                         orgs: data.orgs,
                         id : data._id
                     })
-                    console.log('loaded user information'); 
+                    console.log('loaded user information');
+                    console.log(data)
                 } else {
                     console.log(data.error);
                     navigate('/');
@@ -65,13 +67,28 @@ function Home() {
         getUserInfo();
     }, [])
 
-    return (
+    if (userInfo.userType === "admin") {
+        return (
+            <div>
+                <h1>Home</h1>
+                <h2>Hello, {userInfo.displayName} ({userInfo.userType})</h2>
+                <button onClick={signOut}>sign out</button>
+            </div>
+        )
+    } else if (userInfo.userType === "user") {
+        return (
+            <div>
+                <h1>Home</h1>
+                <h2>Hello, {userInfo.displayName} ({userInfo.userType})</h2>
+                <button onClick={signOut}>sign out</button>
+            </div>
+        )
+    } else {
         <div>
-            <h1>Home</h1>
-            <h2>Hello, {userInfo.displayName}</h2>
-            <button onClick={signOut}>sign out</button>
+            <h1>ayo something ain't right</h1>
         </div>
-    )
+    }
+    
 }
 
 export default Home

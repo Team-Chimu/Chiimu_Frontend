@@ -12,6 +12,7 @@ function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const [userType, setUserType] = useState('user')
 
     // calls /login/signup endpoint
     // if there are no conflicts, signs up user,
@@ -24,7 +25,7 @@ function SignUp() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: email, password: password, name: name })
+            body: JSON.stringify({ email: email, password: password, name: name, usertype: userType })
         }
         fetch(`http://localhost:3001/login/signup`, requestOptions)
             .then(res => res.json())
@@ -64,9 +65,16 @@ function SignUp() {
     return (
         <div>
             <h1>SignUp</h1>
-            <input type='text' placeholder='email' onChange={e => setEmail(e.target.value)} />
-            <input type='text' placeholder='password' onChange={e => setPassword(e.target.value)} />
-            <input type='text' placeholder='name' onChange={e => setName(e.target.value)} />
+            <div>
+                <input type='text' placeholder='email' onChange={e => setEmail(e.target.value)} />
+                <input type='text' placeholder='password' onChange={e => setPassword(e.target.value)} />
+                <input type='text' placeholder='name' onChange={e => setName(e.target.value)} />
+            </div>
+            
+            <div>
+                <p>press checkbox below to be admin!</p>
+                <input type='checkbox' onChange={e => (e.target.checked) ? setUserType('admin') : setUserType('user') }/>
+            </div>
             <button onClick={signUp}>sign up</button>
         </div>
     )
