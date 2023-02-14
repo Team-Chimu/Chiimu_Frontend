@@ -64,9 +64,9 @@ function Home() {
             })
     }
 
-    const [name, setName] = useState('INFO 490');
-    const [description, setDescription] = useState('Capstone');
-    const [accessCode, setAccessCode] = useState('123');
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [accessCode, setAccessCode] = useState('');
 
     function addOrgHandler() {
         const requestOptions = {
@@ -83,12 +83,14 @@ function Home() {
             .then(data => {
                 if (data.status === 'success') {
                     console.log('successfully joined org');
+                    window.location.reload(false);
                 } else {
                     console.log('unable to join org');
                 }
             })
     }
     
+
     // load user info when page is loaded
     useEffect(() => {
         getUserInfo();
@@ -133,6 +135,9 @@ function Home() {
                 </div>
 
                 <button onClick={signOut}>sign out</button>
+                <input type='text' placeholder='name' onChange={e => setName(e.target.value)} />
+                <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} />
+                <input type='text' placeholder='accessCode' onChange={e => setAccessCode(e.target.value)} />
             </div>
         )
     } else {
