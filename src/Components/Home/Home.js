@@ -64,14 +64,31 @@ function Home() {
             })
     }
 
-    const [org, addOrg] = useState([]);
+    const [name, setName] = useState('INFO 490');
+    const [description, setDescription] = useState('Capstone');
+    const [accessCode, setAccessCode] = useState('123');
 
     function addOrgHandler() {
-        addOrg(a => [...a, 'test'])
-        console.log(test)
+        const requestOptions = {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name: name, description: description, accessCode: accessCode })
+        }
+        fetch(`http://localhost:3001/api/org/create`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log('successfully joined org');
+                } else {
+                    console.log('unable to join org');
+                }
+            })
     }
-
-
+    
     // load user info when page is loaded
     useEffect(() => {
         getUserInfo();
@@ -97,9 +114,16 @@ function Home() {
                 
                 <div className='home-teamcards'>
                     {
-                        org.map((item) => (
-                            <div className='home-teamcard'>
-                                {item}
+                        userInfo.admin.map((item) => (
+                            <div className='home-teamcard' key={item.name}>
+                                {item.name}
+                            </div>
+                        ))
+                    }
+                    {
+                        userInfo.orgs.map((item) => (
+                            <div className='home-teamcard' key={item.name}>
+                                {item.name}
                             </div>
                         ))
                     }
