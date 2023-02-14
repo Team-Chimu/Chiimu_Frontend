@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import settingsCog from '../../images/settings-cog.png';
+import addTeam from '../../images/add-team.png';
 import './Home.css';
 
 function Home() {
@@ -62,11 +64,20 @@ function Home() {
             })
     }
 
+    const [org, addOrg] = useState([]);
+
+    function addOrgHandler() {
+        addOrg(a => [...a, 'test'])
+        console.log(test)
+    }
+
+
     // load user info when page is loaded
     useEffect(() => {
         getUserInfo();
     }, [])
 
+    // admin view. currently here for placeholder purposes
     if (userInfo.userType === "admin") {
         return (
             <div>
@@ -75,11 +86,28 @@ function Home() {
                 <button onClick={signOut}>sign out</button>
             </div>
         )
+    // normal user view
     } else if (userInfo.userType === "user") {
         return (
-            <div>
-                <h1>Home</h1>
-                <h2>Hello, {userInfo.displayName} ({userInfo.userType})</h2>
+            <div className='home'>
+                <div className='home-header'>
+                    <h1>Hello, {userInfo.displayName} ({userInfo.userType})</h1>
+                    <img src={settingsCog}></img>
+                </div>
+                
+                <div className='home-teamcards'>
+                    {
+                        org.map((item) => (
+                            <div className='home-teamcard'>
+                                {item}
+                            </div>
+                        ))
+                    }
+                    <div className='home-teamcard'>
+                        <img src={addTeam} onClick={addOrgHandler}></img>
+                    </div>
+                </div>
+
                 <button onClick={signOut}>sign out</button>
             </div>
         )
