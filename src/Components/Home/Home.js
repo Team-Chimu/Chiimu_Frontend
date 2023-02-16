@@ -90,6 +90,9 @@ function Home() {
             })
     }
     
+    function loadOrgPageHandler(key) {
+        navigate(`/org/${key}`)
+    }
 
     // load user info when page is loaded
     useEffect(() => {
@@ -117,20 +120,23 @@ function Home() {
                 <div className='home-teamcards'>
                     {
                         userInfo.admin.map((item) => (
-                            <div className='home-teamcard' key={item.name}>
+                            <div className='home-teamcard' key={item._id} onClick={() => loadOrgPageHandler(item._id)}>
                                 {item.name}
                             </div>
                         ))
                     }
                     {
                         userInfo.orgs.map((item) => (
-                            <div className='home-teamcard' key={item.name}>
+                            <div className='home-teamcard' key={item._id}>
                                 {item.name}
                             </div>
                         ))
                     }
-                    <div className='home-teamcard'>
-                        <img src={addTeam} onClick={addOrgHandler}></img>
+                    <div className='home-teamcard' onClick={addOrgHandler}>
+                        <img src={addTeam}></img>
+                    </div>
+                    <div className='home-teamcard' onClick={addOrgHandler}>
+                        join
                     </div>
                 </div>
 
