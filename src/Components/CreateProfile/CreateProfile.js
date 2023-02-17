@@ -45,8 +45,8 @@ function CreateProfile() {
     }, [])
 
 
-    const {questions, setQuestions} = useState(['qOne', 'qTwo']);
-    const {answers, setAnswers} = useState(['aOne', 'aTwo']);
+    const questions = ['question one', 'question two', 'question three'];
+    const [answers, setAnswers] = useState([]);
 
 
     function createProfile() {
@@ -58,7 +58,7 @@ function CreateProfile() {
                 'Content-Type': 'application/json',
             },
             //body: JSON.stringify({ orgid: id, userid: userInfo.id, questions: questions, answers: answers})
-            body: JSON.stringify({ orgid: id, userid: userInfo.id, questions: ['qOne'], answers: ['aOne']})
+            body: JSON.stringify({ orgid: id, userid: userInfo.id, questions: questions, answers: answers})
         }
         fetch(`http://localhost:3001/api/userprofile/create`, requestOptions)
             .then(res => res.json())
@@ -76,6 +76,16 @@ function CreateProfile() {
         <div>
             <h1>Create Profile</h1>
             <button onClick={createProfile}>create profile</button>
+            {
+                questions.map((q, i) => (
+                    <div key={i}>
+                        <h1>{q}</h1>
+                        <input type='text' placeholder='answer' id={i}/>
+                        <button onClick={() => setAnswers(arr => [...arr, document.getElementById(i).value])}>next</button>
+                    </div>
+                ))
+            }
+            <button onClick={() => console.log(answers)}>print answers</button>
         </div>
     )
 }
