@@ -82,10 +82,20 @@ function Home() {
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    console.log('successfully joined org');
+                    console.log('successfully created org');
+                    console.log(data);
+                    fetch(`http://localhost:3001/api/org/${data.orgid}/join`, requestOptions)
+                        .then(res2 => res2.json())
+                        .then(data2 => {
+                            if (data2.status === 'success') {
+                                console.log('successfully joined my own org')
+                            } else {
+                                console.log('unable to join org');
+                            }
+                    })
                     window.location.reload(false);
                 } else {
-                    console.log('unable to join org');
+                    console.log('unable to create org');
                 }
             })
     }
@@ -119,24 +129,14 @@ function Home() {
                 
                 <div className='home-teamcards'>
                     {
-                        userInfo.admin.map((item) => (
-                            <div className='home-teamcard' key={item._id} onClick={() => loadOrgPageHandler(item._id)}>
-                                {item.name}
-                            </div>
-                        ))
-                    }
-                    {
                         userInfo.orgs.map((item) => (
-                            <div className='home-teamcard' key={item._id}>
-                                {item.name}
+                            <div className='home-teamcard' key={item._id._id} onClick={() => loadOrgPageHandler(item._id._id)} >
+                                {item._id.name}
                             </div>
                         ))
                     }
                     <div className='home-teamcard' onClick={addOrgHandler}>
                         <img src={addTeam}></img>
-                    </div>
-                    <div className='home-teamcard' onClick={addOrgHandler}>
-                        join
                     </div>
                 </div>
 
