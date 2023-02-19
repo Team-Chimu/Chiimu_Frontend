@@ -11,6 +11,7 @@ function Org() {
 
     // contains user information
     const [userInfo, setUserInfo] = useState({})
+    const [orgInfo, setOrgInfo] = useState({})
 
     // check if user is in the group
     // currently doesn't work
@@ -48,7 +49,7 @@ function Org() {
                             if (data.status === 'success') {
                                 console.log('GOT THE PROFILE');
                                 console.log(data)
-
+                                
                             } else if (data.error === 'profile not created') {
                                 navigate(`/createprofile/${id}`)
                             } else {
@@ -64,12 +65,40 @@ function Org() {
             })
     }
 
+    function getOrgInfo() {
+        const requestOptions = {
+            credentials: 'include',
+            method: 'GET'
+        }
+        fetch(`http://localhost:3001/api/org/${id}`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log('successfully got org info');
+                    console.log(data)
+                    setOrgInfo({
+                        accessCode: data.accessCode,
+                        admin: data.admin,
+                        description: data.description,
+                        members: data.members,
+                        name: data.name,
+
+                    })
+                } else {
+                    console.log(data.error)
+                }
+            })
+    }
+
     useEffect(() => {
         getUserInfo();
+        getOrgInfo();
     }, [])
 
     return (
-        <div>this is the id: {id}</div>
+        <div>
+            <button onClick={() => navigate('/home')}>go home</button>
+        </div>
     )
 }
 

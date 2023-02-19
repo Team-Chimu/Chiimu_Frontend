@@ -141,9 +141,11 @@ function Home() {
                 </div>
 
                 <button onClick={signOut}>sign out</button>
+                <br />
                 <input type='text' placeholder='name' onChange={e => setName(e.target.value)} />
                 <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} />
                 <input type='text' placeholder='accessCode' onChange={e => setAccessCode(e.target.value)} />
+                <br />
             </div>
         )
     } else {
