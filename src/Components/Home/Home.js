@@ -64,42 +64,6 @@ function Home() {
             })
     }
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [accessCode, setAccessCode] = useState('');
-
-    function addOrgHandler() {
-        const requestOptions = {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name: name, description: description, accessCode: accessCode })
-        }
-        fetch(`http://localhost:3001/api/org/create`, requestOptions)
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    console.log('successfully created org');
-                    console.log(data);
-                    fetch(`http://localhost:3001/api/org/${data.orgid}/join`, requestOptions)
-                        .then(res2 => res2.json())
-                        .then(data2 => {
-                            if (data2.status === 'success') {
-                                console.log('successfully joined my own org')
-                            } else {
-                                console.log('unable to join org');
-                            }
-                    })
-                    window.location.reload(false);
-                } else {
-                    console.log('unable to create org');
-                }
-            })
-    }
-    
     function loadOrgPageHandler(key) {
         navigate(`/org/${key}`)
     }
@@ -135,16 +99,14 @@ function Home() {
                             </div>
                         ))
                     }
-                    <div className='home-teamcard' onClick={addOrgHandler}>
+                    <div className='home-teamcard' onClick={() => navigate('/createjoinorg')}>
                         <img src={addTeam}></img>
                     </div>
                 </div>
 
                 <button onClick={signOut}>sign out</button>
                 <br />
-                <input type='text' placeholder='name' onChange={e => setName(e.target.value)} />
-                <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} />
-                <input type='text' placeholder='accessCode' onChange={e => setAccessCode(e.target.value)} />
+                
                 <br />
             </div>
         )
