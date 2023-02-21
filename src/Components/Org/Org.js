@@ -12,7 +12,6 @@ function Org() {
     // contains user information
     const [userInfo, setUserInfo] = useState({})
     const [orgInfo, setOrgInfo] = useState({})
-
     // check if user is in the group
     // currently doesn't work
     function isInOrg(array) {
@@ -82,8 +81,8 @@ function Org() {
                         description: data.description,
                         members: data.members,
                         name: data.name,
-
                     })
+
                 } else {
                     console.log(data.error)
                 }
@@ -100,9 +99,9 @@ function Org() {
             <h1>{orgInfo.name}</h1>
             <h2>members</h2>
             {
-                orgInfo.members.map((member) => (
+                orgInfo.members?.map((member) => (
                     <p key={member._id} onClick={() => console.log(member._id)}>{member.displayName}</p>
-                ))
+                ), [])
             }
             <button onClick={() => navigate('/home')}>go home</button>
         </div>
