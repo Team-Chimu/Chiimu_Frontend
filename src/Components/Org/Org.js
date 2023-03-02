@@ -99,9 +99,13 @@ function Org() {
             <h1>{orgInfo.name}</h1>
             <h2>members</h2>
             {
-                orgInfo.members?.map((member) => (
-                    <p key={member._id} onClick={() => console.log(member._id)}>{member.displayName}</p>
-                ), [])
+                orgInfo.members?.map((member) => {
+                    if (member._id !== userInfo.id ) {
+                        return (
+                            <p key={member._id} onClick={() => console.log(member._id)}>{member.displayName}</p>
+                        )
+                    }
+                })
             }
             <button onClick={() => navigate('/home')}>go home</button>
         </div>
