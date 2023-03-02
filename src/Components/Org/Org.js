@@ -82,7 +82,6 @@ function Org() {
                         members: data.members,
                         name: data.name,
                     })
-
                 } else {
                     console.log(data.error)
                 }
@@ -102,12 +101,14 @@ function Org() {
                 orgInfo.members?.map((member) => {
                     if (member._id !== userInfo.id ) {
                         return (
-                            <p key={member._id} onClick={() => console.log(member._id)}>{member.displayName}</p>
+                            <p key={member._id} onClick={() => navigate(`/org/${id}/${member._id}`, {state: {allUsers: orgInfo.members}, replace: false})}>
+                                {member.displayName}
+                            </p>
                         )
                     }
                 })
             }
-            <button onClick={() => navigate('/home')}>go home</button>
+            <button onClick={() => navigate('/home') }>go home</button>
         </div>
     )
 }
