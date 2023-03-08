@@ -101,13 +101,19 @@ function Org() {
                 orgInfo.members?.map((member) => {
                     if (member._id !== userInfo.id ) {
                         return (
-                            <p key={member._id} onClick={() => navigate(`/org/${id}/${member._id}`, {state: {allUsers: orgInfo.members}, replace: false})}>
+                            <p key={member._id} onClick={() => navigate(`/org/orgprofile/${id}`, {state: {allUsers: orgInfo.members}, replace: false})}>
                                 {member.displayName}
                             </p>
                         )
                     }
                 })
             }
+            <button>Team Agreement</button>
+            <br />
+            <button>Team Norm</button>
+            <br />
+            <button>Weekly check-in</button>
+            <br />
             <button onClick={() => navigate('/home') }>go home</button>
         </div>
     )

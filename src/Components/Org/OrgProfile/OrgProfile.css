@@ -1,0 +1,25 @@
+.orgprofile_bio {
+    display: flex;
+}
+
+.orgprofile_bio img {
+    width: 7em;
+    height: 7em;
+    padding: 2em 2em 1em 2em;
+}
+
+.orgprofile_bio h3 {
+    margin: 0;
+}
+
+.orgprofile_bio div {
+    padding-top: 1.6em;
+}
+
+.orgprofile_contact {
+    margin-left: 2em;
+}
+
+.orgprofile_contact h4 {
+    margin: 0;
+}

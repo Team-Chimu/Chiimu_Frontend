@@ -8,6 +8,7 @@ import CreateJoinOrg from './Components/CreateJoinOrg/CreateJoinOrg.js';
 import CreateOrg from './Components/CreateJoinOrg/CreateOrg/CreateOrg.js';
 import OrgProfile from './Components/Org/OrgProfile/OrgProfile.js';
 import JoinOrg from './Components/CreateJoinOrg/JoinOrg/JoinOrg.js';
+import PageNotFound from './Components/PageNotFound/PageNotFound.js';
 import { Route, Routes } from 'react-router';
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
                 <Route path='/createorg' element={<CreateOrg /> }/>
                 <Route path='/joinorg' element={<JoinOrg /> } />
                 <Route path='/org/:id' element={<Org /> } />
-                <Route path='/org/:id/:profileId' element={ <OrgProfile /> } />
-                <Route path='/createprofile/:id' element={<CreateProfile /> }/>
+                <Route path='/org/orgprofile/:id' element={ <OrgProfile /> } />
+                <Route path='/createprofile/:id' element={<CreateProfile /> } />
+                <Route path='*' element={<PageNotFound />} />
             </Routes>
         </div>
     );
