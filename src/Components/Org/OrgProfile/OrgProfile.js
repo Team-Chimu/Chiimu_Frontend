@@ -28,7 +28,12 @@ function OrgProfile() {
                         userType: data.userType,
                         admin: data.admin,
                         orgs: data.orgs,
-                        id : data._id
+                        id : data._id,
+                        standing : data.standing,
+                        major : data.major,
+                        MBTI : data.MBTI,
+                        phone : data.phone,
+                        workstyle : data.workstyle
                     })
                     console.log('loaded user information');
                     console.log(data)
@@ -58,6 +63,13 @@ function OrgProfile() {
                         setTeamInfo(teamInfo => [...teamInfo, {
                             _id: data._id,
                             displayName: data.displayName,
+                            iceBreakerQuestions: data2.questions,
+                            iceBreakerAnswers: data2.answers,
+                            standing : data.standing,
+                            major : data.major,
+                            MBTI : data.MBTI,
+                            phone : data.phone,
+                            workstyle : data.workstyle
                             // add more stuff here as needed
                         }])
                     })
@@ -67,7 +79,13 @@ function OrgProfile() {
         })
     }
 
-    //setTeamInfo(teamInfo => [...teamInfo, data])
+    function iceBreakers(a, b) {
+        let content = []
+        for (let i = 0; i < 3; i++) {
+            content.push([a[i], b[i]])
+        }
+        return content
+    }
 
     useEffect(() => {
         getUserInfo();
@@ -86,10 +104,10 @@ function OrgProfile() {
                                     <img src={placeholderImg}/>
                                     <div>
                                         <h3>Name: {member.displayName}</h3>
-                                        <h3>Standing:</h3>
-                                        <h3>Major:</h3>
-                                        <h3>MBTI:</h3>
-                                        <h3>Work Type:</h3>
+                                        <h3>Standing: {member.standing}</h3>
+                                        <h3>Major: {member.major}</h3>
+                                        <h3>MBTI: {member.MBTI}</h3>
+                                        <h3>Work Type: {member.workstyle}</h3>
                                     </div>
                                 </div>
                                 <div className='orgprofile_contact'>
@@ -99,10 +117,16 @@ function OrgProfile() {
                                     <h4>placeholder</h4>
                                 </div>
                                 <div className='orgprofile_questions'>
-
+                                    <h5>Icebreakers Questions and Answers</h5>
+                                    {iceBreakers(member.iceBreakerQuestions, member.iceBreakerAnswers).map((item, i) => (
+                                        <React.Fragment key={i}>
+                                            <h5>Q{i + 1}: {item[0]}</h5>
+                                            <h5>A: {item[1]}</h5>
+                                        </React.Fragment>
+                                    ))}
                                 </div>
                                 {/* make some sort of carousel with this button */}
-                                <button>next</button>
+                                <button onClick={() => console.log()}>next</button>
                             </div>
                         )
                     }

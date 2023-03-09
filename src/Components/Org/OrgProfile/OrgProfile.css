@@ -23,3 +23,12 @@
 .orgprofile_contact h4 {
     margin: 0;
 }
+
+.orgprofile_questions {
+    padding-top: 1.6em;
+    margin-left: 2em;
+}
+
+.orgprofile_questions h5 {
+    margin: 0;
+}

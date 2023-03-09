@@ -43,17 +43,14 @@ function Org() {
                         id : data._id
                     })
                     fetch(`http://localhost:3001/api/userprofile/${id}/${data._id}`, requestOptions)
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.status === 'success') {
+                        .then(res2 => res2.json())
+                        .then(data2 => {
+                            if (data2.status === 'success') {
                                 console.log('GOT THE PROFILE');
-                                console.log(data)
-                                
-                            } else if (data.error === 'profile not created') {
-                                navigate(`/createprofile/${id}`)
+                                console.log(data2)
+                                navigate(`/org/${id}`)
                             } else {
-                                console.log(data.error)
-                                navigate('/home');
+                                navigate(`/createprofile/${id}`)
                             }
                         })
 
@@ -96,6 +93,7 @@ function Org() {
     return (
         <div>
             <h1>{orgInfo.name}</h1>
+            <h2>id: {id}</h2>
             <h2>members</h2>
             {
                 orgInfo.members?.map((member) => {
