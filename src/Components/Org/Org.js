@@ -40,7 +40,8 @@ function Org() {
                         userType: data.userType,
                         admin: data.admin,
                         orgs: data.orgs,
-                        id : data._id
+                        id : data._id,
+                        viewed: data.viewed
                     })
                     fetch(`http://localhost:3001/api/userprofile/${id}/${data._id}`, requestOptions)
                         .then(res2 => res2.json())
@@ -87,20 +88,16 @@ function Org() {
 
     function isReady() {
         // check if the team has 5 members
-        if (orgInfo.members?.length != 5) {
-            return(
-                <h1>team is not full</h1>
-            )
+        if (orgInfo.members?.length < 2) {
+            console.log('not enough team mates')
+            return false
+        } else if (orgInfo.viewed?.length < 2) {
+            console.log('not everyone has viewed profiles')
+            return false
+        } else {
+            return true
         }
-
-        // check if everyone on the team saw profiles
-
         
-
-        // return nothing everything is all good
-        return(
-            <h1>READY</h1>
-        )
     }
 
 
@@ -126,8 +123,7 @@ function Org() {
                     }
                 })
             }
-            {isReady()}
-            <button>Team Agreement</button>
+            <button onClick={() => navigate(`/org/teamagreement/${id}`)} disabled={!isReady()}>Team Agreement</button>
             <br />
             <button>Team Norm</button>
             <br />
