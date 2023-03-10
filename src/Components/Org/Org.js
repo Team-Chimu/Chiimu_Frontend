@@ -85,6 +85,26 @@ function Org() {
             })
     }
 
+    function isReady() {
+        // check if the team has 5 members
+        if (orgInfo.members?.length != 5) {
+            return(
+                <h1>team is not full</h1>
+            )
+        }
+
+        // check if everyone on the team saw profiles
+
+        
+
+        // return nothing everything is all good
+        return(
+            <h1>READY</h1>
+        )
+    }
+
+
+
     useEffect(() => {
         getUserInfo();
         getOrgInfo();
@@ -106,12 +126,14 @@ function Org() {
                     }
                 })
             }
+            {isReady()}
             <button>Team Agreement</button>
             <br />
             <button>Team Norm</button>
             <br />
             <button>Weekly check-in</button>
             <br />
+            
             <button onClick={() => navigate('/home') }>go home</button>
         </div>
     )

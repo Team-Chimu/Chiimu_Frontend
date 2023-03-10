@@ -7,6 +7,7 @@ function OrgProfile() {
 
     const [userInfo, setUserInfo] = useState({})
     const [teamInfo, setTeamInfo] = useState([])
+    const [orgInfo, setOrgInfo] = useState({})
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -79,6 +80,31 @@ function OrgProfile() {
         })
     }
 
+    function getOrgInfo() {
+        const requestOptions = {
+            credentials: 'include',
+            method: 'GET'
+        }
+        fetch(`http://localhost:3001/api/org/${id}`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log('successfully got org info');
+                    console.log(data)
+                    setOrgInfo({
+                        accessCode: data.accessCode,
+                        admin: data.admin,
+                        description: data.description,
+                        members: data.members,
+                        name: data.name,
+                        viewed: data.viewed
+                    })
+                } else {
+                    console.log(data.error)
+                }
+            })
+    }
+
     function iceBreakers(a, b) {
         let content = []
         for (let i = 0; i < 3; i++) {
@@ -87,9 +113,33 @@ function OrgProfile() {
         return content
     }
 
+    function viewedTeam() {
+        if (orgInfo.viewed.includes(userInfo.id)) {
+            navigate(`/org/${id}`)
+            return;
+        }
+        
+        const requestOptions = {
+            credentials: 'include',
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userid: userInfo.id })
+        }
+        fetch(`http://localhost:3001/api/org/${id}/viewed`, requestOptions)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            navigate(`/org/${id}`)
+        })
+    }
+
     useEffect(() => {
         getUserInfo();
         getTeammateInfo();
+        getOrgInfo();
     }, [])
 
     return (
@@ -132,7 +182,8 @@ function OrgProfile() {
                     }
                 })
             }
-            <button onClick={() => console.log(teamInfo)}>testing</button>
+            <button onClick={viewedTeam}>I SPIED ON MY TEAM MATES</button>
+            
         </div>
     )
 }
