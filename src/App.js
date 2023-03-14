@@ -11,6 +11,7 @@ import JoinOrg from './Components/CreateJoinOrg/JoinOrg/JoinOrg.js';
 import PageNotFound from './Components/PageNotFound/PageNotFound.js';
 import TeamAgreement from './Components/Org/TeamAgreement/TeamAgreement.js';
 import Pulse from './Components/Org/Pulse/Pulse.js';
+import PulseResponse from './Components/Org/Pulse/PulseResponse/PulseResponse.js';
 import { Route, Routes } from 'react-router';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
                 <Route path='/org/orgprofile/:id' element={ <OrgProfile /> } />
                 <Route path='/org/teamagreement/:id' element={ <TeamAgreement /> } />
                 <Route path='/org/pulse/:id' element={ <Pulse /> } />
+                <Route path='/org/pulse/:id/:week' element={ <PulseResponse /> } />
                 <Route path='/createprofile/:id' element={<CreateProfile /> } />
                 <Route path='*' element={<PageNotFound />} />
             </Routes>

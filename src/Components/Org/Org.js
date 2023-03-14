@@ -129,7 +129,8 @@ function Org() {
             <br />
             <button>Weekly check-in</button>
             <br />
-            
+            <button onClick={() => navigate(`/org/pulse/${id}`)}>Pulse</button>
+            <br />
             <button onClick={() => navigate('/home') }>go home</button>
         </div>
     )

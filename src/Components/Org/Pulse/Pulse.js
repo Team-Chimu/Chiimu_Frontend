@@ -9,6 +9,7 @@ function Pulse() {
     let navigate = useNavigate();
 
     const [userInfo, setUserInfo] = useState({})
+    const weeks = [1, 2, 3, 4]
 
     function getUserInfo() {
         const requestOptions = {
@@ -36,7 +37,17 @@ function Pulse() {
     return (
         <div>
             <h1>Pulse</h1>
-
+            {
+                weeks.map((e) => {
+                    return(
+                        <React.Fragment key={e}>
+                            <button onClick={() => navigate(`${e}`)}>Week {e} Pulse</button>
+                            <br />
+                        </React.Fragment>
+                        
+                    )
+                })
+            }
         </div>
     )
 }
