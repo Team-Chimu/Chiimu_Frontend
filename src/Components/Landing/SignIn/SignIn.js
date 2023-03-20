@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SignUp.css';
+import './SignIn.css';
 
-function SignUp() {
-
+function SignIn() {
     // hook to redirect
     let navigate = useNavigate();
 
@@ -11,13 +10,12 @@ function SignUp() {
     // values are update when text fields change
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [userType, setUserType] = useState('user')
 
-    // calls /login/signup endpoint
-    // if there are no conflicts, signs up user,
-    // logs user in, and redirects to home page
-    function signUp() {
+
+    // calls /login/signin endpoint
+    // if information is correct, signs user in
+    // and calls checkAuth()
+    function signIn() {
         const requestOptions = {
             credentials: 'include',
             method: 'POST',
@@ -25,14 +23,13 @@ function SignUp() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: email, password: password, name: name, usertype: userType })
+            body: JSON.stringify({ email: email, password: password })
         }
-        fetch(`http://localhost:3001/login/signup`, requestOptions)
+        fetch(`http://localhost:3001/login/signin`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    console.log('successfully signed up and signed in')
-                    navigate('/home');
+                    checkAuth();
                 } else {
                     console.log(data.error);
                 }
@@ -63,21 +60,18 @@ function SignUp() {
     }, [])
 
     return (
-        <div>
-            <h1>SignUp</h1>
-            <div>
+        <div className='signin'>
+            <div className='signin-text'>
+                <h2>Welcome Back!</h2>
+                <h2>Please sign in to continue.</h2>
+            </div>
+            <div className='signin-inputs'>
                 <input type='text' placeholder='email' onChange={e => setEmail(e.target.value)} />
                 <input type='text' placeholder='password' onChange={e => setPassword(e.target.value)} />
-                <input type='text' placeholder='name' onChange={e => setName(e.target.value)} />
             </div>
-            
-            <div>
-                <p>press checkbox below to be admin!</p>
-                <input type='checkbox' onChange={e => (e.target.checked) ? setUserType('admin') : setUserType('user') }/>
-            </div>
-            <button onClick={signUp}>sign up</button>
+            <button onClick={signIn}>Sign in</button>
         </div>
     )
 }
 
-export default SignUp
+export default SignIn

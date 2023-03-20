@@ -1,0 +1,57 @@
+.landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.landing img {
+    width: 9em;
+}
+
+.landing .landing-imgbackground {
+    width: 11em;
+    height: 11em;
+    border-radius: 3em;
+    background-color: #CCFCE6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.landing h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #005855;
+    font-size: 3em;
+}
+
+.landing h2 {
+    margin-top: 6em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #005855;
+}
+
+.landing .landing-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.landing .landing-buttons .landing-buttons-signin {
+    background-color: #FF8139;
+}
+
+.landing .landing-buttons .landing-buttons-signup {
+    background-color: #FFE481;
+}
+
+.landing .landing-buttons button {
+    width: 11em;
+    height: 3.1em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    border: none;
+    border-radius: 1em;
+}

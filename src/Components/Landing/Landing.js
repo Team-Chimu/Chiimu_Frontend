@@ -1,40 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../images/logo.png';
 import './Landing.css';
 
 function Landing() {
 
     // hook to redirect
     let navigate = useNavigate();
-
-    // variables for email and password
-    // values are update when text fields change
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    // calls /login/signin endpoint
-    // if information is correct, signs user in
-    // and calls checkAuth()
-    function signIn() {
-        const requestOptions = {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: email, password: password })
-        }
-        fetch(`http://localhost:3001/login/signin`, requestOptions)
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    checkAuth();
-                } else {
-                    console.log(data.error);
-                }
-            })
-    }
 
     // calls /api/users/self endpoint
     // navigates to /home if user is authenticated
@@ -61,12 +33,17 @@ function Landing() {
     }, [])
 
     return (
-        <div>
-            <h1>Landing</h1>
-            <input type='text' placeholder='email' onChange={e => setEmail(e.target.value)} />
-            <input type='text' placeholder='password' onChange={e => setPassword(e.target.value)} />
-            <button onClick={signIn}>sign in</button>
-            <button onClick={() => navigate('/signup')}>sign up</button>
+        <div className='landing'>
+            <h2>Welcome to</h2>
+            <div className='landing-imgbackground'>
+                <img src={logo}/>
+            </div>
+            <h1>Chimu</h1>
+            <div className='landing-buttons'>
+                <button className='landing-buttons-signin' onClick={() => navigate('/signin')}>sign in</button>
+                <button className='landing-buttons-signup' onClick={() => navigate('/signup')}>sign up</button>
+            </div>
+            
         </div>
     )
 }

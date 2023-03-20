@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import settingsCog from '../../images/settings-cog.png';
 import addTeam from '../../images/add-team.png';
+import placeholderImg from '../../images/placeholder-pic.png';
 import './Home.css';
 
 function Home() {
@@ -11,6 +11,13 @@ function Home() {
 
     // contains user information
     const [userInfo, setUserInfo] = useState({})
+
+    let counter = 3;
+    const colors = {
+        1: '#FF8139',
+        2: '#FFE481',
+        3: '#9EECC8',
+    }
 
     // calls /api/users/self endpoint
     // to get and set user information
@@ -85,21 +92,25 @@ function Home() {
     // normal user view
     } else if (userInfo.userType === "user") {
         return (
-            <div className='home'>
+            <div className='home'> 
                 <div className='home-header'>
-                    <h1>Hello, {userInfo.displayName} ({userInfo.userType})</h1>
-                    <img src={settingsCog}></img>
+                    <h2>Hello, {userInfo.displayName}</h2>
+                    <img src={placeholderImg} />
                 </div>
                 
                 <div className='home-teamcards'>
                     {
-                        userInfo.orgs.map((item) => (
-                            <div className='home-teamcard' key={item._id._id} onClick={() => loadOrgPageHandler(item._id._id)} >
-                                {item._id.name}
-                            </div>
-                        ))
+                        userInfo.orgs.map((item) => {
+                            
+                            return (
+                                <div className='home-teamcard' key={item._id._id} onClick={() => loadOrgPageHandler(item._id._id)} style={{backgroundColor: colors[counter == 3 ? counter = 1 : ++counter]}}>
+                                    {item._id.name}
+                                </div>
+                            )
+                            
+                        })
                     }
-                    <div className='home-teamcard' onClick={() => navigate('/createjoinorg')}>
+                    <div className='home-teamcard' onClick={() => navigate('/createjoinorg')} style={{backgroundColor: colors[counter == 3 ? counter = 1 : ++counter]}} >
                         <img src={addTeam}></img>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import './App.css';
 import Landing from './Components/Landing/Landing.js';
-import SignUp from './Components/SignUp/SignUp.js';
+import SignUp from './Components/Landing/SignUp/SignUp.js';
+import SignIn from './Components/Landing/SignIn/SignIn.js';
 import Home from './Components/Home/Home.js';
 import Org from './Components/Org/Org.js';
 import CreateProfile from './Components/CreateProfile/CreateProfile.js';
@@ -19,6 +20,7 @@ function App() {
         <div className="App">
             <Routes>
                 <Route path='/' element={<Landing />} />
+                <Route path='/signin' element={ < SignIn /> } />
                 <Route path='/signup' element={ <SignUp /> } />
                 <Route path='/home' element={<Home />} />
                 <Route path='/createjoinorg' element={< CreateJoinOrg /> }/>
