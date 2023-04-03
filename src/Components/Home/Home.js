@@ -104,7 +104,7 @@ function Home() {
                             
                             return (
                                 <div className='home-teamcard' key={item._id._id} onClick={() => loadOrgPageHandler(item._id._id)} style={{backgroundColor: colors[counter == 3 ? counter = 1 : ++counter]}}>
-                                    {item._id.name}
+                                    <p>{item._id.name}</p>
                                 </div>
                             )
                             

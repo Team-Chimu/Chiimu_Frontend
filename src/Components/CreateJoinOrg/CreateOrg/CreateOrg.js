@@ -92,13 +92,45 @@ function CreateOrg() {
         getUserInfo();
     }, [])
 
+    const [questionNum, setQuestionNum] = useState(0)
+
+    function inputFields() {
+        if (questionNum == 0) {
+            return(
+                <div className='createorg-inputfields'>
+                    <h3>What's your group name?</h3>
+                    <input type='text' placeholder='name' onChange={e => setName(e.target.value)} id='createorg-input'/>
+                    <button onClick={nextQuestion}>next</button>
+                </div>
+            )
+        } else if (questionNum == 1) {
+            return(
+                <div className='createorg-inputfields'>
+                    <h3>What's your group description?</h3>
+                    <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} id='createorg-input' />
+                    <button onClick={nextQuestion}>next</button>
+                </div>
+            )
+        } else {
+            return(
+                <div className='createorg-inputfields'>
+                    <h3>Create your access code</h3>
+                    <input type='text' placeholder='accessCode' onChange={e => setAccessCode(e.target.value)} id='createorg-input' />
+                    <button onClick={addOrgHandler}>submit</button>
+                </div>
+            )
+        }
+        
+    }
+
+    function nextQuestion() {
+        setQuestionNum(questionNum + 1)
+        document.getElementById('createorg-input').value = ''
+    }
+
     return (
-        <div>
-            <h1>Create Group</h1>
-            <input type='text' placeholder='name' onChange={e => setName(e.target.value)} />
-            <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} />
-            <input type='text' placeholder='accessCode' onChange={e => setAccessCode(e.target.value)} />
-            <button onClick={addOrgHandler}>submit</button>
+        <div className='createorg'>
+            {inputFields()}
         </div>
     )
 }

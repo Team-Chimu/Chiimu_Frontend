@@ -44,10 +44,12 @@ function CreateJoinOrg() {
     }, [])
 
     return (
-        <div>
-            <button onClick={() => navigate('/createorg')}>Create Group</button>
-            <br />
-            <button onClick={() => navigate('/joinorg')}>Join Group</button>
+        <div className='createjoinorg'>
+            <div className='createjoinorg-buttons'>
+                <button onClick={() => navigate('/createorg')} className='createjoinorg-buttons-create'>Create Group</button>
+                <button onClick={() => navigate('/joinorg')} className='createjoinorg-buttons-join'>Join Group</button>
+            </div>
+            
         </div>
     )
 }

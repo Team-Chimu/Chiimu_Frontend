@@ -41,7 +41,7 @@ function Org() {
                         admin: data.admin,
                         orgs: data.orgs,
                         id : data._id,
-                        viewed: data.viewed
+                        
                     })
                     fetch(`http://localhost:3001/api/userprofile/${id}/${data._id}`, requestOptions)
                         .then(res2 => res2.json())
@@ -79,6 +79,7 @@ function Org() {
                         description: data.description,
                         members: data.members,
                         name: data.name,
+                        viewed: data.viewed
                     })
                 } else {
                     console.log(data.error)
@@ -86,18 +87,14 @@ function Org() {
             })
     }
 
+    const [ready, setReady] = useState(false)
+
     function isReady() {
-        // check if the team has 5 members
-        if (orgInfo.members?.length < 2) {
-            console.log('not enough team mates')
-            return false
-        } else if (orgInfo.viewed?.length < 2) {
-            console.log('not everyone has viewed profiles')
-            return false
-        } else {
-            return true
+        // check if the team has 2 members
+        // can change this in future, 2 members is only for testing
+        if (orgInfo.members?.length == 2 && orgInfo.viewed?.length == 2) {
+            setReady(true)
         }
-        
     }
 
 
@@ -105,7 +102,12 @@ function Org() {
     useEffect(() => {
         getUserInfo();
         getOrgInfo();
+        
     }, [])
+
+    useEffect(() => {
+        isReady();
+    }, [orgInfo])
 
     return (
         <div>
@@ -123,7 +125,7 @@ function Org() {
                     }
                 })
             }
-            <button onClick={() => navigate(`/org/teamagreement/${id}`)} disabled={!isReady()}>Team Agreement</button>
+            <button onClick={() => navigate(`/org/teamagreement/${id}`)} disabled={!ready}>Team Agreement</button>
             <br />
             <button>Team Norm</button>
             <br />

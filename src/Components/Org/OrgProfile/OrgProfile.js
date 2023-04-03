@@ -136,16 +136,9 @@ function OrgProfile() {
         })
     }
 
-    useEffect(() => {
-        getUserInfo();
-        getTeammateInfo();
-        getOrgInfo();
-    }, [])
-
-    return (
-        <div>
-            <h1>OrgProfile</h1>
-            {
+    function displayProfiles() {
+        try {
+            return(
                 teamInfo?.map((member) => {
                     if (member._id !== userInfo.id) {
                         return (
@@ -181,7 +174,26 @@ function OrgProfile() {
                         )
                     }
                 })
-            }
+            )
+        } catch(e) {
+            return (
+                <h1>no information available</h1>
+            )
+        }
+            
+        
+    }
+
+    useEffect(() => {
+        getUserInfo();
+        getTeammateInfo();
+        getOrgInfo();
+    }, [])
+
+    return (
+        <div>
+            <h1>OrgProfile</h1>
+            {displayProfiles()}
             <button onClick={viewedTeam}>I SPIED ON MY TEAM MATES</button>
             
         </div>
