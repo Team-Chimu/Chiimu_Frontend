@@ -14,7 +14,7 @@
     margin-bottom: 10em;
 }
 
-#createorg-input {
+.createorg-input {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     height: 2.5em;

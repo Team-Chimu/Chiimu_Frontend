@@ -112,51 +112,103 @@ function CreateProfile() {
     const [phone, setPhone] = useState('')
     const [workstyle, setWorkstyle] = useState('')
 
+    
+
+    const [questionNum, setQuestionNum] = useState(0)
+    const [flag, setFlag] = useState(0)
+
+    function nextQuestion(a = null) {
+        setQuestionNum(questionNum + 1)
+        document.querySelector('.createprofile-input').value = ''
+        if (a != null) {
+            setAnswers(arr => [...arr, a])
+        }
+        
+    }
+
     function accountQuestions() {
         if (userInfo.standing == undefined) {
+            
+            if (questionNum == 0) {
+                return(
+                    <div className='createprofile-inputfields'>
+                        <h3>What is your Standing?</h3>
+                        <input type='text' placeholder='standing' onChange={e => setStanding(e.target.value)} className='createprofile-input'/>
+                        <button onClick={() => nextQuestion()}>next</button>
+                    </div>
+                )
+            } else if (questionNum == 1) {
+                return(
+                    <div className='createprofile-inputfields'>
+                        <h3>What is your major?</h3>
+                        <input type='text' placeholder='major' onChange={e => setMajor(e.target.value)} className='createprofile-input'/>
+                        <button onClick={() => nextQuestion()}>next</button>
+                    </div>
+                )
+            } else if (questionNum == 2) {
+                return(
+                    <div className='createprofile-inputfields'>
+                        <h3>What is your MBTI?</h3>
+                        <input type='text' placeholder='MBTI' onChange={e => setMbti(e.target.value)} className='createprofile-input'/>
+                        <button onClick={() => nextQuestion()}>next</button>
+                    </div>
+                )
+            } else if (questionNum == 3) {
+                return(
+                    <div className='createprofile-inputfields'>
+                        <h3>What is your phone number?</h3>
+                        <input type='text' placeholder='phone number' onChange={e => setPhone(e.target.value)} className='createprofile-input'/>
+                        <button onClick={() => nextQuestion()}>next</button>
+                    </div>
+                )
+            } else if (questionNum == 4) {
+                return(
+                    <div className='createprofile-inputfields'>
+                        <h3>What is your workstyle?</h3>
+                        <input type='text' placeholder='workstyle' onChange={e => setWorkstyle(e.target.value)} className='createprofile-input'/>
+                        <button onClick={() => nextQuestion()}>next</button>
+                    </div>
+                )
+            }
+        } else {
+            if (flag == 0) setFlag(1)
             return(
-                <>
-                    <h1>What is your Standing</h1>
-                    <input type='text' placeholder='answer' id='createprofile-standing'/>
-                    <button onClick={() => setStanding(document.getElementById('createprofile-standing').value)}>next</button>
-
-                    <h1>What is your major</h1>
-                    <input type='text' placeholder='answer' id='createprofile-major'/>
-                    <button onClick={() => setMajor(document.getElementById('createprofile-major').value)}>next</button>
-
-                    <h1>What is your MBTI</h1>
-                    <input type='text' placeholder='answer' id='createprofile-MBTI'/>
-                    <button onClick={() => setMbti(document.getElementById('createprofile-MBTI').value)}>next</button>
-
-                    <h1>What is your phone number</h1>
-                    <input type='text' placeholder='answer' id='createprofile-phone'/>
-                    <button onClick={() => setPhone(document.getElementById('createprofile-phone').value)}>next</button>
-
-                    <h1>What is your workstyle</h1>
-                    <input type='text' placeholder='answer' id='createprofile-workstyle'/>
-                    <button onClick={() => setWorkstyle(document.getElementById('createprofile-workstyle').value)}>next</button>
-                </>
+                <></>
             )
         }
     }
 
+    function groupQuestions() {
+        if (questionNum >= 5) {
+            let i = questionNum - 5
+            let isLastQuestion = i == questions.length - 1
+            return (
+                <div className='createprofile-inputfields'>
+                    <h3>{questions[questionNum-5]}</h3>
+                    <input type='text' placeholder='answer' className='createprofile-input' id={'createprofile-'+i}/>
+                    <button onClick={() => isLastQuestion ? createProfile() : nextQuestion(document.getElementById('createprofile-'+i).value)}>
+                        {isLastQuestion ? 'submit' : 'next'}
+                    </button>
+                </div>
+            )
+        } else {
+            return(
+                <></>
+            )
+        }
+    }
+
+    useEffect(() => {
+        if (flag == 1) {
+            setQuestionNum(5)
+        }
+        
+    },[flag])
+
     return (
-        <div>
-            <h1>Create Profile</h1>
-            {
-                questions.map((q, i) => (
-                    <React.Fragment key={i}>
-                        <h1>{q}</h1>
-                        <input type='text' placeholder='answer' id={'createprofile-' + i}/>
-                        <button onClick={() => setAnswers(arr => [...arr, document.getElementById('createprofile-' + i).value])}>next</button>
-                    </React.Fragment>
-                ))
-            }
+        <div className='createprofile'>
             {accountQuestions()}
-            <br />
-            <button onClick={() => console.log(answers)}>print answers</button>
-            <button onClick={createProfile}>create profile</button>
-            <button onClick={() => navigate('/home')}>go home</button>
+            {groupQuestions()}
         </div>
     )
 }

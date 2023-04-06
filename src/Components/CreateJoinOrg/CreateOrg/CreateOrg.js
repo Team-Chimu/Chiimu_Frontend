@@ -99,7 +99,7 @@ function CreateOrg() {
             return(
                 <div className='createorg-inputfields'>
                     <h3>What's your group name?</h3>
-                    <input type='text' placeholder='name' onChange={e => setName(e.target.value)} id='createorg-input'/>
+                    <input type='text' placeholder='name' onChange={e => setName(e.target.value)} className='createorg-input'/>
                     <button onClick={nextQuestion}>next</button>
                 </div>
             )
@@ -107,7 +107,7 @@ function CreateOrg() {
             return(
                 <div className='createorg-inputfields'>
                     <h3>What's your group description?</h3>
-                    <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} id='createorg-input' />
+                    <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} className='createorg-input' />
                     <button onClick={nextQuestion}>next</button>
                 </div>
             )
@@ -115,7 +115,7 @@ function CreateOrg() {
             return(
                 <div className='createorg-inputfields'>
                     <h3>Create your access code</h3>
-                    <input type='text' placeholder='accessCode' onChange={e => setAccessCode(e.target.value)} id='createorg-input' />
+                    <input type='text' placeholder='accessCode' onChange={e => setAccessCode(e.target.value)} className='createorg-input' />
                     <button onClick={addOrgHandler}>submit</button>
                 </div>
             )
@@ -125,7 +125,7 @@ function CreateOrg() {
 
     function nextQuestion() {
         setQuestionNum(questionNum + 1)
-        document.getElementById('createorg-input').value = ''
+        document.querySelector('.createorg-input').value = ''
     }
 
     return (
