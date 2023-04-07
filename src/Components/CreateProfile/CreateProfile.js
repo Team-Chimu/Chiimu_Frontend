@@ -98,21 +98,11 @@ function CreateProfile() {
             })
     }
 
-    /*
-        standing : self.standing,
-        major : self.major,
-        MBTI : self.MBTI,
-        phone : self.phone,
-        workstyle : self.workstyle
-    */
-
     const [standing, setStanding] = useState('')
     const [major, setMajor] = useState('')
     const [mbti, setMbti] = useState('')
     const [phone, setPhone] = useState('')
     const [workstyle, setWorkstyle] = useState('')
-
-    
 
     const [questionNum, setQuestionNum] = useState(0)
     const [flag, setFlag] = useState(0)
@@ -120,6 +110,7 @@ function CreateProfile() {
     function nextQuestion(a = null) {
         setQuestionNum(questionNum + 1)
         document.querySelector('.createprofile-input').value = ''
+        setProgress(progress + 1)
         if (a != null) {
             setAnswers(arr => [...arr, a])
         }
@@ -128,13 +119,15 @@ function CreateProfile() {
 
     function accountQuestions() {
         if (userInfo.standing == undefined) {
-            
             if (questionNum == 0) {
                 return(
                     <div className='createprofile-inputfields'>
                         <h3>What is your Standing?</h3>
                         <input type='text' placeholder='standing' onChange={e => setStanding(e.target.value)} className='createprofile-input'/>
-                        <button onClick={() => nextQuestion()}>next</button>
+                        <div className='createprofile-buttons'>
+                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
+                        </div> 
                     </div>
                 )
             } else if (questionNum == 1) {
@@ -142,7 +135,11 @@ function CreateProfile() {
                     <div className='createprofile-inputfields'>
                         <h3>What is your major?</h3>
                         <input type='text' placeholder='major' onChange={e => setMajor(e.target.value)} className='createprofile-input'/>
-                        <button onClick={() => nextQuestion()}>next</button>
+                        <div className='createprofile-buttons'>
+                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
+                        </div>
+                        
                     </div>
                 )
             } else if (questionNum == 2) {
@@ -150,7 +147,11 @@ function CreateProfile() {
                     <div className='createprofile-inputfields'>
                         <h3>What is your MBTI?</h3>
                         <input type='text' placeholder='MBTI' onChange={e => setMbti(e.target.value)} className='createprofile-input'/>
-                        <button onClick={() => nextQuestion()}>next</button>
+                        <div className='createprofile-buttons'>
+                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
+                        </div>
+                        
                     </div>
                 )
             } else if (questionNum == 3) {
@@ -158,7 +159,11 @@ function CreateProfile() {
                     <div className='createprofile-inputfields'>
                         <h3>What is your phone number?</h3>
                         <input type='text' placeholder='phone number' onChange={e => setPhone(e.target.value)} className='createprofile-input'/>
-                        <button onClick={() => nextQuestion()}>next</button>
+                        <div className='createprofile-buttons'>
+                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
+                        </div>
+                        
                     </div>
                 )
             } else if (questionNum == 4) {
@@ -166,7 +171,11 @@ function CreateProfile() {
                     <div className='createprofile-inputfields'>
                         <h3>What is your workstyle?</h3>
                         <input type='text' placeholder='workstyle' onChange={e => setWorkstyle(e.target.value)} className='createprofile-input'/>
-                        <button onClick={() => nextQuestion()}>next</button>
+                        <div className='createprofile-buttons'>
+                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
+                        </div>
+                        
                     </div>
                 )
             }
@@ -186,9 +195,13 @@ function CreateProfile() {
                 <div className='createprofile-inputfields'>
                     <h3>{questions[questionNum-5]}</h3>
                     <input type='text' placeholder='answer' className='createprofile-input' id={'createprofile-'+i}/>
-                    <button onClick={() => isLastQuestion ? createProfile() : nextQuestion(document.getElementById('createprofile-'+i).value)}>
-                        {isLastQuestion ? 'submit' : 'next'}
-                    </button>
+                    <div className='createprofile-buttons'>
+                        <button className='createprofile-buttons-back'>Back</button>
+                        <button onClick={() => isLastQuestion ? createProfile() : nextQuestion(document.getElementById('createprofile-'+i).value)} className='createprofile-buttons-next'>
+                            {isLastQuestion ? 'Submit' : 'Next'}
+                        </button>
+                    </div>
+                    
                 </div>
             )
         } else {
@@ -201,15 +214,25 @@ function CreateProfile() {
     useEffect(() => {
         if (flag == 1) {
             setQuestionNum(5)
+            setTotal(total - 5)
         }
-        
     },[flag])
+
+    const [progress, setProgress] = useState(0)
+    const [total, setTotal] = useState(questions.length + 5)
 
     return (
         <div className='createprofile'>
+            <div className='createprofile-progressbar'>
+                <div className='createprofile-progressborder'>
+                    <div style={{ width: `${Math.trunc(progress/total*100)}%` }}></div>
+                </div>
+                <p>{Math.trunc(progress/total*100)}%</p>
+            </div>
             {accountQuestions()}
             {groupQuestions()}
         </div>
+        
     )
 }
 
