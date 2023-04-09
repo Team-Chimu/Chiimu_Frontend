@@ -11,7 +11,8 @@ function Home() {
 
     // contains user information
     const [userInfo, setUserInfo] = useState({})
-
+    const [displayingImage, setDisplayingImage] = useState(null);
+    
     let counter = 3;
     const colors = {
         1: '#FF8139',
@@ -31,14 +32,7 @@ function Home() {
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    setUserInfo({
-                        email: data.email,
-                        displayName: data.displayName,
-                        userType: data.userType,
-                        admin: data.admin,
-                        orgs: data.orgs,
-                        id : data._id
-                    })
+                    setUserInfo(data)
                     console.log('loaded user information');
                     console.log(data)
                 } else {
@@ -80,6 +74,15 @@ function Home() {
         getUserInfo();
     }, [])
 
+    useEffect(() => {
+        if (userInfo.profilePic == '') return
+        fetch(userInfo.profilePic)
+            .then(res => res.blob())
+            .then(data => {
+                setDisplayingImage(URL.createObjectURL(data))
+            })
+    }, [userInfo])
+
     // admin view. currently here for placeholder purposes
     if (userInfo.userType === "admin") {
         return (
@@ -95,7 +98,7 @@ function Home() {
             <div className='home'> 
                 <div className='home-header'>
                     <h2>Hello, {userInfo.displayName}</h2>
-                    <img src={placeholderImg} />
+                    <img src={userInfo.profilePic == '' ? placeholderImg : displayingImage } onClick={() => navigate('/profilepic')}/>
                 </div>
                 
                 <div className='home-teamcards'>
@@ -116,9 +119,6 @@ function Home() {
                 </div>
 
                 <button onClick={signOut}>sign out</button>
-                <br />
-                
-                <br />
             </div>
         )
     } else {

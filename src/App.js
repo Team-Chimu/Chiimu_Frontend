@@ -2,6 +2,7 @@ import './App.css';
 import Landing from './Components/Landing/Landing.js';
 import SignUp from './Components/Landing/SignUp/SignUp.js';
 import SignIn from './Components/Landing/SignIn/SignIn.js';
+import SetProfilePicture from './Components/SetProfilePicture/SetProfilePicture.js';
 import Home from './Components/Home/Home.js';
 import Org from './Components/Org/Org.js';
 import CreateProfile from './Components/CreateProfile/CreateProfile.js';
@@ -22,6 +23,7 @@ function App() {
                 <Route path='/' element={<Landing />} />
                 <Route path='/signin' element={ < SignIn /> } />
                 <Route path='/signup' element={ <SignUp /> } />
+                <Route path='/profilepic' element={ <SetProfilePicture /> } />
                 <Route path='/home' element={<Home />} />
                 <Route path='/createjoinorg' element={< CreateJoinOrg /> }/>
                 <Route path='/createorg' element={<CreateOrg /> }/>

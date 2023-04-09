@@ -34,7 +34,7 @@ function SignUp() {
             .then(data => {
                 if (data.status === 'success') {
                     console.log('successfully signed up and signed in')
-                    navigate('/home');
+                    navigate('/profilepic');
                 } else {
                     console.log(data.error);
                 }
@@ -80,14 +80,7 @@ function SignUp() {
                 <input type='text' placeholder='Password' onChange={e => setPassword(e.target.value)} />
                 <input type='text' placeholder='Confirm Password' onChange={e => setConfirmPassword(e.target.value)} />
             </div>
-            
-            {/* uncomment this if we ever decide to implement an admin
-            <div>
-                <p>press checkbox below to be admin!</p>
-                <input type='checkbox' onChange={e => (e.target.checked) ? setUserType('admin') : setUserType('user') }/>
-            </div> 
-            */}
-            <button onClick={signUp}>sign up</button>
+            <button onClick={signUp}>Next</button>
         </div>
     )
 }
