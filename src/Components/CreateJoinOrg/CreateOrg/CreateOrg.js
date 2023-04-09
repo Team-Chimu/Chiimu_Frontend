@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { domain } from '../../../domain.js'
 import './CreateOrg.css'
 
 
@@ -18,7 +19,7 @@ function CreateOrg() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -65,13 +66,13 @@ function CreateOrg() {
             },
             body: JSON.stringify({ accessCode: accessCode })
         }
-        fetch(`http://localhost:3001/api/org/create`, requestOptions)
+        fetch(`${domain}/api/org/create`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
                     console.log('successfully created org');
                     console.log(data);
-                    fetch(`http://localhost:3001/api/org/${data.orgid}/join`, requestOptions2)
+                    fetch(`${domain}/api/org/${data.orgid}/join`, requestOptions2)
                         .then(res2 => res2.json())
                         .then(data2 => {
                             if (data2.status === 'success') {

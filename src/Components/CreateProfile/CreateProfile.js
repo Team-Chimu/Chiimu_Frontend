@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
+import { domain } from '../../domain.js';
 import './CreateProfile.css'
 
 function CreateProfile() {
@@ -19,7 +20,7 @@ function CreateProfile() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -64,7 +65,7 @@ function CreateProfile() {
             },
             body: JSON.stringify({ orgid: id, userid: userInfo.id, questions: questions, answers: answers})
         }
-        fetch(`http://localhost:3001/api/userprofile/create`, requestOptions)
+        fetch(`${domain}/api/userprofile/create`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -87,7 +88,7 @@ function CreateProfile() {
             },
             body: JSON.stringify({ standing: standing, major: major, MBTI: mbti, phone: phone, workstyle: workstyle })
         }
-        fetch(`http://localhost:3001/api/users/information/${userInfo.id}`, requestOptions)
+        fetch(`${domain}/api/users/information/${userInfo.id}`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {

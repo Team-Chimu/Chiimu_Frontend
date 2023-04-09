@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
+import { domain } from '../../../../domain.js';
 import './PulseResponse.css'
 
 function PulseResponse() {
@@ -19,7 +20,7 @@ function PulseResponse() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -38,7 +39,7 @@ function PulseResponse() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/pulse/${id}/${week}`, requestOptions)
+        fetch(`${domain}/api/pulse/${id}/${week}`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -60,7 +61,7 @@ function PulseResponse() {
             },
             body: JSON.stringify({ questions: questions, answers: answers, week: week })
         }
-        fetch(`http://localhost:3001/api/pulse/create/${id}/${userInfo._id}`, requestOptions)
+        fetch(`${domain}/api/pulse/create/${id}/${userInfo._id}`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {

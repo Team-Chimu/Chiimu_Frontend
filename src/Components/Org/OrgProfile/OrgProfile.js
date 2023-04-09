@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { domain } from '../../../domain.js';
 import placeholderImg from '../../../images/placeholder-pic.png';
 import './OrgProfile.css'
 
@@ -19,7 +20,7 @@ function OrgProfile() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -52,10 +53,10 @@ function OrgProfile() {
         }
         location.state.allUsers?.forEach((member) => {
             if (member._id !== userInfo.id) {
-                fetch(`http://localhost:3001/api/users/${member._id}`, requestOptions)
+                fetch(`${domain}/api/users/${member._id}`, requestOptions)
                 .then(res => res.json())
                 .then(data => {
-                    fetch(`http://localhost:3001/api/userprofile/${id}/${member._id}`, requestOptions)
+                    fetch(`${domain}/api/userprofile/${id}/${member._id}`, requestOptions)
                     .then(res2 => res2.json())
                     .then(data2 => {
                         console.log('----------')
@@ -85,7 +86,7 @@ function OrgProfile() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/org/${id}`, requestOptions)
+        fetch(`${domain}/api/org/${id}`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -128,7 +129,7 @@ function OrgProfile() {
             },
             body: JSON.stringify({ userid: userInfo.id })
         }
-        fetch(`http://localhost:3001/api/org/${id}/viewed`, requestOptions)
+        fetch(`${domain}/api/org/${id}/viewed`, requestOptions)
         .then(res => res.json())
         .then(data => {
             console.log(data)

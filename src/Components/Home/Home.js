@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { domain } from '../../domain.js';
 import addTeam from '../../images/add-team.png';
 import placeholderImg from '../../images/placeholder-pic.png';
 import './Home.css';
@@ -28,7 +29,7 @@ function Home() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -53,7 +54,7 @@ function Home() {
                 'Content-Type': 'application/json',
             }
         }
-        fetch(`http://localhost:3001/login/signout`, requestOptions)
+        fetch(`${domain}/login/signout`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {

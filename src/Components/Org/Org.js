@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
+import { domain } from '../../domain.js';
 import './Org.css'
 
 function Org() {
@@ -30,7 +31,7 @@ function Org() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -43,7 +44,7 @@ function Org() {
                         id : data._id,
                         
                     })
-                    fetch(`http://localhost:3001/api/userprofile/${id}/${data._id}`, requestOptions)
+                    fetch(`${domain}/api/userprofile/${id}/${data._id}`, requestOptions)
                         .then(res2 => res2.json())
                         .then(data2 => {
                             if (data2.status === 'success') {
@@ -67,7 +68,7 @@ function Org() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/org/${id}`, requestOptions)
+        fetch(`${domain}/api/org/${id}`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -96,8 +97,6 @@ function Org() {
             setReady(true)
         }
     }
-
-
 
     useEffect(() => {
         getUserInfo();

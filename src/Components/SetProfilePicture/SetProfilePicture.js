@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { domain } from '../../domain.js';
 import axios from 'axios';
 import placeholderImg from '../../images/placeholder-pic.png';
 import './SetProfilePicture.css';
@@ -13,13 +14,14 @@ function SetProfilePicture() {
     const [userInfo, setUserInfo] = useState({})
     const [sendingImage, setSendingImage] = useState('');
     const [displayingImage, setDisplayingImage] = useState(null);
+    const [flag, setFlag] = useState(0)
 
     function getUserInfo() {
         const requestOptions = {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -37,20 +39,26 @@ function SetProfilePicture() {
         const requestOptions = {
             withCredentials: true,
             method: 'PUT',
-            'Access-Control-Allow-Origin': '*'
         }
-        try {
-            axios.put('http://localhost:3001/api/users/setpic', {image: sendingImage}, requestOptions)
-            .then(res => {
-                console.log(res.data)
-            })
-        } catch(e) {
-            console.log(e)
+        if (flag == 1) {
+            try {
+                axios.put(`${domain}/api/users/setpic`, {image: sendingImage}, requestOptions)
+                .then(res => {
+                    console.log(res.data)
+                    setTimeout(() => {
+                        navigate('/home')
+                    }, 250);
+                })
+            } catch(e) {
+                console.log(e)
+            }
+        } else {
+            console.log('no changes')
         }
-        
     }
 
     function formatImage(myFile) {
+        setFlag(1)
         setDisplayingImage(URL.createObjectURL(myFile))
         let reader = new FileReader()
         reader.readAsDataURL(myFile)
@@ -81,11 +89,13 @@ function SetProfilePicture() {
     return (
         <div className='setprofilepicture'>
             {displayingImage == null ? <img src={placeholderImg}/> : <img src={displayingImage}/> }
-            <input type="file" name="myImage" accept='image/jpeg' onChange={e => formatImage(e.target.files[0])}/>
-            <h2 onClick={() => navigate('/home')}>Skip</h2>
-            <button onClick={() => console.log(displayingImage)}>print database pic</button>
-            <button onClick={() => console.log(sendingImage)}>testing</button>
-            <button onClick={setProfilePic}>set image</button>
+            <h2>Add profile picture</h2>
+            <label>
+                <input type="file" accept='image/*' onChange={e => formatImage(e.target.files[0])}/>
+                Choose from library
+            </label>
+            <button onClick={setProfilePic}>Save image</button>
+            <h3 onClick={() => navigate('/home')}>Skip</h3>
         </div>
     )
 }

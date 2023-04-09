@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { domain } from '../../../domain.js'
 import './SignUp.css';
 
 function SignUp() {
@@ -29,7 +30,7 @@ function SignUp() {
             body: JSON.stringify({ email: email, password: password, name: name, usertype: userType })
         }
         if (password == confirmPassword) {
-            fetch(`http://localhost:3001/login/signup`, requestOptions)
+            fetch(`${domain}/login/signup`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -52,7 +53,7 @@ function SignUp() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {

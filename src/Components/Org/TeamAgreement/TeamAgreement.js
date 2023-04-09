@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
+import { domain } from '../../../domain.js';
 import './TeamAgreement.css'
 
 function TeamAgreement() {
@@ -14,7 +15,7 @@ function TeamAgreement() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -53,7 +54,7 @@ function TeamAgreement() {
             },
             body: JSON.stringify({ orgid: id, teamGoals: teamGoals, meetingTimes: meetingTimes, communicationChannels: communicationChannels, pulse: pulse })
         }
-        fetch(`http://localhost:3001/api/teamAgreement/create`, requestOptions)
+        fetch(`${domain}/api/teamAgreement/create`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -69,7 +70,7 @@ function TeamAgreement() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/teamAgreement/${id}`, requestOptions)
+        fetch(`${domain}/api/teamAgreement/${id}`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {

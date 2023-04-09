@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { domain } from '../../../domain.js'
 import './SignIn.css';
 
 function SignIn() {
@@ -25,7 +26,7 @@ function SignIn() {
             },
             body: JSON.stringify({ email: email, password: password })
         }
-        fetch(`http://localhost:3001/login/signin`, requestOptions)
+        fetch(`${domain}/login/signin`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -43,7 +44,7 @@ function SignIn() {
             credentials: 'include',
             method: 'GET'
         }
-        fetch(`http://localhost:3001/api/users/self`, requestOptions)
+        fetch(`${domain}/api/users/self`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
