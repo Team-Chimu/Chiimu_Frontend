@@ -1,0 +1,108 @@
+.org {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.org-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3em;
+    border-bottom: 3px solid #005855;
+    padding-bottom: 0.2em;
+    width: 8em;
+    margin-top: 2em;
+}
+
+.org-header h2 {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.3em;
+    color: #005855;
+}
+
+.org-header img {
+    width: 2em;
+    height: 2em;
+}
+
+.org-members {
+    margin-top: 3em;
+    width: 20em;
+    height: 6em;
+    display: flex;
+    align-items: center;
+    gap: 1.3em;
+}
+
+.org-members > div {
+    width: 4em;
+    height: 6em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.org-members > div div {
+    width: 4em;
+    height: 4em;
+    background-color: white;
+    border: 3px solid orange;
+    border-radius: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.org-members > div div img {
+    width: 3.8em;
+    height: 3.8em;
+    border-radius: 10em;
+}
+
+.org-buttons {
+    margin-top: 3em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+.org-buttons button {
+    width: 24em;
+    height: 5em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    border: none;
+    border-radius: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5em 0 1.5em;
+}
+
+.org-buttons button img {
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.org-buttons button:disabled {
+    color: rgba(0, 0, 0, 0.75);
+    opacity: 75%;
+}
+
+.org-buttons .org-buttons-teamagreement {
+    background-color: #ffe481;
+}
+
+.org-buttons .org-buttons-pulse {
+    background-color: #9EECC8;
+}
+
+.org-buttons .org-buttons-weeklyagreement {
+    background-color: #FF8139;
+}

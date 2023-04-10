@@ -45,9 +45,11 @@ function SetProfilePicture() {
                 axios.put(`${domain}/api/users/setpic`, {image: sendingImage}, requestOptions)
                 .then(res => {
                     console.log(res.data)
-                    setTimeout(() => {
-                        navigate('/home')
-                    }, 250);
+                    navigate('/home')
+                    window.location.reload(false)
+                    // setTimeout(() => {
+                        
+                    // }, 250);
                 })
             } catch(e) {
                 console.log(e)
@@ -95,7 +97,8 @@ function SetProfilePicture() {
                 Choose from library
             </label>
             <button onClick={setProfilePic}>Save image</button>
-            <h3 onClick={() => navigate('/home')}>Skip</h3>
+            <h3 onClick={() => {navigate('/home')
+            window.location.reload(false)}}>Skip</h3>
         </div>
     )
 }

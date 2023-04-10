@@ -144,7 +144,7 @@ function OrgProfile() {
                     if (member._id !== userInfo.id) {
                         return (
                             <div key={member._id}>
-                                <div className='orgprofile_bio'>  
+                                <div className='orgprofile-bio'>  
                                     <img src={placeholderImg}/>
                                     <div>
                                         <h3>Name: {member.displayName}</h3>
@@ -154,13 +154,13 @@ function OrgProfile() {
                                         <h3>Work Type: {member.workstyle}</h3>
                                     </div>
                                 </div>
-                                <div className='orgprofile_contact'>
+                                <div className='orgprofile-contact'>
                                     <h4>Preferred Contact:</h4>
                                     <h4>placeholder</h4>
                                     <h4>Emergency Contact:</h4>
                                     <h4>placeholder</h4>
                                 </div>
-                                <div className='orgprofile_questions'>
+                                <div className='orgprofile-questions'>
                                     <h5>Icebreakers Questions and Answers</h5>
                                     {iceBreakers(member.iceBreakerQuestions, member.iceBreakerAnswers).map((item, i) => (
                                         <React.Fragment key={i}>
@@ -181,8 +181,6 @@ function OrgProfile() {
                 <h1>no information available</h1>
             )
         }
-            
-        
     }
 
     useEffect(() => {
@@ -192,11 +190,10 @@ function OrgProfile() {
     }, [])
 
     return (
-        <div>
+        <div className='orgprofile'>
             <h1>OrgProfile</h1>
             {displayProfiles()}
             <button onClick={viewedTeam}>I SPIED ON MY TEAM MATES</button>
-            
         </div>
     )
 }

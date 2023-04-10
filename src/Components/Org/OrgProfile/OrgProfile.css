@@ -1,34 +1,38 @@
-.orgprofile_bio {
+.orgprofile {
+    padding-bottom: 20em;
+}
+
+.orgprofile-bio {
     display: flex;
 }
 
-.orgprofile_bio img {
+.orgprofile-bio img {
     width: 7em;
     height: 7em;
     padding: 2em 2em 1em 2em;
 }
 
-.orgprofile_bio h3 {
+.orgprofile-bio h3 {
     margin: 0;
 }
 
-.orgprofile_bio div {
+.orgprofile-bio div {
     padding-top: 1.6em;
 }
 
-.orgprofile_contact {
+.orgprofile-contact {
     margin-left: 2em;
 }
 
-.orgprofile_contact h4 {
+.orgprofile-contact h4 {
     margin: 0;
 }
 
-.orgprofile_questions {
+.orgprofile-questions {
     padding-top: 1.6em;
     margin-left: 2em;
 }
 
-.orgprofile_questions h5 {
+.orgprofile-questions h5 {
     margin: 0;
 }

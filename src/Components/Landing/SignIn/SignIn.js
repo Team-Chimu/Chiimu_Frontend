@@ -50,6 +50,7 @@ function SignIn() {
                 if (data.status === 'success') {
                     console.log('already logged in');
                     navigate('/home');
+                    window.location.reload(false)
                 } else {
                     console.log(data.error)
                 }

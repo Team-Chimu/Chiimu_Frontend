@@ -1,4 +1,5 @@
 import './App.css';
+import Navbar from './Components/Navbar/Navbar.js';
 import Landing from './Components/Landing/Landing.js';
 import SignUp from './Components/Landing/SignUp/SignUp.js';
 import SignIn from './Components/Landing/SignIn/SignIn.js';
@@ -36,6 +37,7 @@ function App() {
                 <Route path='/createprofile/:id' element={<CreateProfile /> } />
                 <Route path='*' element={<PageNotFound />} />
             </Routes>
+            <Navbar />
         </div>
     );
 }

@@ -104,21 +104,18 @@ function Home() {
                 
                 <div className='home-teamcards'>
                     {
-                        userInfo.orgs.map((item) => {
-                            
+                        userInfo.orgs.map((item) => {        
                             return (
                                 <div className='home-teamcard' key={item._id._id} onClick={() => loadOrgPageHandler(item._id._id)} style={{backgroundColor: colors[counter == 3 ? counter = 1 : ++counter]}}>
                                     <p>{item._id.name}</p>
                                 </div>
                             )
-                            
                         })
                     }
                     <div className='home-teamcard' onClick={() => navigate('/createjoinorg')} style={{backgroundColor: colors[counter == 3 ? counter = 1 : ++counter]}} >
                         <img src={addTeam}></img>
                     </div>
                 </div>
-
                 <button onClick={signOut}>sign out</button>
             </div>
         )
