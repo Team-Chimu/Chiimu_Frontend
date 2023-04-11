@@ -134,7 +134,7 @@ function PulseResponse() {
 
     useEffect(() => {
         let info = pulseInfo.pulseResult
-        if (info?.length == 2) {
+        if (info?.length == 3) {
             setPulseStatus(0)
             return
         }
