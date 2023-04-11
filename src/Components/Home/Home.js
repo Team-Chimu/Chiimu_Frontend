@@ -12,7 +12,6 @@ function Home() {
 
     // contains user information
     const [userInfo, setUserInfo] = useState({})
-    const [displayingImage, setDisplayingImage] = useState(null);
     
     let counter = 3;
     const colors = {
@@ -75,15 +74,6 @@ function Home() {
         getUserInfo();
     }, [])
 
-    useEffect(() => {
-        if (userInfo.profilePic == '') return
-        fetch(userInfo.profilePic)
-            .then(res => res.blob())
-            .then(data => {
-                setDisplayingImage(URL.createObjectURL(data))
-            })
-    }, [userInfo])
-
     // admin view. currently here for placeholder purposes
     if (userInfo.userType === "admin") {
         return (
@@ -99,7 +89,7 @@ function Home() {
             <div className='home'> 
                 <div className='home-header'>
                     <h2>Hello, {userInfo.displayName}</h2>
-                    <img src={userInfo.profilePic == '' ? placeholderImg : displayingImage } onClick={() => navigate('/profilepic')}/>
+                    <img src={userInfo.profilePic == '' ? placeholderImg : userInfo.profilePic } onClick={() => navigate('/profilepic')}/>
                 </div>
                 
                 <div className='home-teamcards'>

@@ -17,7 +17,6 @@ function Org() {
     // contains user information
     const [userInfo, setUserInfo] = useState({})
     const [orgInfo, setOrgInfo] = useState({})
-    const [teamInfo, setTeamInfo] = useState([])
 
     function getUserInfo() {
         const requestOptions = {
@@ -58,36 +57,11 @@ function Org() {
                 if (data.status === 'success') {
                     // console.log('successfully got org info');
                     // console.log(data)
-                    setOrgInfo({
-                        accessCode: data.accessCode,
-                        admin: data.admin,
-                        description: data.description,
-                        members: data.members,
-                        name: data.name,
-                        viewed: data.viewed
-                    })
+                    setOrgInfo(data)
                 } else {
                     console.log(data.error)
                 }
             })
-    }
-
-    function getTeammateInfo() {
-        const requestOptions = {
-            credentials: 'include',
-            method: 'GET'
-        }
-        orgInfo.members?.forEach((member) => {
-            if (member._id !== userInfo.id) {
-                fetch(`${domain}/api/userprofile/${id}/${member._id}`, requestOptions)
-                    .then(res => res.json())
-                    .then(data => {
-                        // console.log('----------')
-                        // console.log(data)
-                        setTeamInfo(teamInfo => [...teamInfo, data])
-                    })
-            }
-        })
     }
 
     const [ready1, setReady1] = useState(false)
@@ -115,17 +89,23 @@ function Org() {
             })
     }
 
-    function userProfilePic(i) {
-        let img = teamInfo.at(i)?.profilePic
-        fetch(img)
-        .then(res => res.blob())
-        .then(data => {
-            console.log(data)
-            return (
-                <img src={URL.createObjectURL(data)}/>
-            )   
-        })
-        
+
+    function displayMembers() {
+        return (
+            orgInfo.members?.map((member, i) => {   
+                console.log(member)
+                if (member._id !== userInfo._id ) {
+                    return (
+                        <div key={member._id} onClick={() => navigate(`/org/orgprofile/${id}`, {state: {allUsers: orgInfo.members}, replace: false})}>
+                            <div>
+                                {member.profilePic == '' ? <img src={placeholderPic} /> : <img src={member.profilePic} /> }
+                            </div>
+                            {member.displayName}
+                        </div>
+                    )
+                }
+            })
+        )
     }
 
     useEffect(() => {
@@ -134,7 +114,6 @@ function Org() {
     }, [])
 
     useEffect(() => {
-        getTeammateInfo();
         isReady1();
         isReady2();
     }, [orgInfo])
@@ -148,21 +127,7 @@ function Org() {
             </div>
 
             <div className='org-members'>
-                {
-                    orgInfo.members?.map((member, i) => {   
-                        if (member._id !== userInfo._id ) {
-                            return (
-                                <div key={member._id} onClick={() => navigate(`/org/orgprofile/${id}`, {state: {allUsers: orgInfo.members}, replace: false})}>
-                                    <div>
-                                        <img src={placeholderPic} />
-                                    </div>
-                                    {member.displayName}
-                                </div>
-                            )
-                        }
-                    })
-                }
-                
+                {displayMembers()} 
             </div>
 
             <div className='org-buttons'>
@@ -175,12 +140,11 @@ function Org() {
                     Pulse
                     {!ready2 ? <img src={lock}/> : <img src={openlock}/>}
                 </button>
-                <button className='org-buttons-weeklyagreement'>
+                <button className='org-buttons-weeklyagreement' onClick={() => console.log(orgInfo)}>
                     what do i put here
                     {/* {!ready1 ? <img src={lock}/> : <img src={openlock}/>} */}
                 </button>
             </div>
-            
         </div>
     )
 }
