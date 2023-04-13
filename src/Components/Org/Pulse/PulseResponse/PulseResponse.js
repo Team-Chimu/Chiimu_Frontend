@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { domain } from '../../../../domain.js';
 import './PulseResponse.css'
+import Pie from "./PieChart";
+import {ProgressBar} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function PulseResponse() {
 
@@ -14,6 +17,9 @@ function PulseResponse() {
     const [pulseStatus, setPulseStatus] = useState()
     const [questions, setQuestions] = useState(['Team Goals', 'Regular Meeting Times', 'Communication Channels'])
     const [answers, setAnswers] = useState([])
+
+    let collaboration = 0;
+    let projectProgress = 0;
 
     function getUserInfo() {
         const requestOptions = {
@@ -163,10 +169,27 @@ function PulseResponse() {
                         return(
                             <React.Fragment key={i}>
                                 <h3>{questions[i]}: {e}</h3>
-                            </React.Fragment>
+                                <ProgressBar className="progressBar" now={e*100/5}/>               
+                            </React.Fragment>                     
                         )
                     })
                 }
+                <div className="piechart">
+                    <Pie
+                    data={[
+                            { label: 'Poor', value: 50 },
+                            { label: 'Good', value: 30 }
+                        ]}
+                    />
+                </div>
+                <div className="piechart">
+                    <Pie
+                    data={[
+                            { label: 'Poor', value: 20 },
+                            { label: 'Good', value: 50 }
+                        ]}
+                    />
+                </div>
             </div>
         )
     } else if (pulseStatus == 1) {
