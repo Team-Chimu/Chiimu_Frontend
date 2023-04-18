@@ -45,7 +45,6 @@ function CreateOrg() {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [accessCode, setAccessCode] = useState('');
 
     function addOrgHandler() {
         const requestOptions = {
@@ -55,32 +54,14 @@ function CreateOrg() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name: name, description: description, accessCode: accessCode })
-        }
-        const requestOptions2 = {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ accessCode: accessCode })
+            body: JSON.stringify({ name: name, description: description })
         }
         fetch(`${domain}/api/org/create`, requestOptions)
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if (data.status === 'success') {
                     console.log('successfully created org');
-                    console.log(data);
-                    fetch(`${domain}/api/org/${data.orgid}/join`, requestOptions2)
-                        .then(res2 => res2.json())
-                        .then(data2 => {
-                            if (data2.status === 'success') {
-                                console.log('successfully joined my own org')
-                            } else {
-                                console.log('unable to join org');
-                            }
-                    })
                     navigate('/home')
                     window.location.reload(false)
                 } else {
@@ -104,19 +85,11 @@ function CreateOrg() {
                     <button onClick={nextQuestion}>next</button>
                 </div>
             )
-        } else if (questionNum == 1) {
+        } else {
             return(
                 <div className='createorg-inputfields'>
                     <h3>What's your group description?</h3>
                     <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} className='createorg-input' />
-                    <button onClick={nextQuestion}>next</button>
-                </div>
-            )
-        } else {
-            return(
-                <div className='createorg-inputfields'>
-                    <h3>Create your access code</h3>
-                    <input type='text' placeholder='accessCode' onChange={e => setAccessCode(e.target.value)} className='createorg-input' />
                     <button onClick={addOrgHandler}>submit</button>
                 </div>
             )

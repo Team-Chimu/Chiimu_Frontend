@@ -108,15 +108,25 @@ function CreateProfile() {
     const [questionNum, setQuestionNum] = useState(0)
     const [flag, setFlag] = useState(0)
 
-    function nextQuestion(a = null) {
+    const [markDone, setMarkDone] = useState(false)
+
+    function nextQuestion(a = false, b = null) {
         setQuestionNum(questionNum + 1)
         document.querySelector('.createprofile-input').value = ''
         setProgress(progress + 1)
-        if (a != null) {
-            setAnswers(arr => [...arr, a])
+        if (b != null) {
+            setAnswers(arr => [...arr, b])
         }
-        
+        if (a) {
+            setMarkDone(true)
+        }
     }
+
+    useEffect(() => {
+        if (markDone) {
+            createProfile()
+        } 
+    }, [answers])
 
     function accountQuestions() {
         if (userInfo.standing == undefined) {
@@ -198,11 +208,10 @@ function CreateProfile() {
                     <input type='text' placeholder='answer' className='createprofile-input' id={'createprofile-'+i}/>
                     <div className='createprofile-buttons'>
                         <button className='createprofile-buttons-back'>Back</button>
-                        <button onClick={() => isLastQuestion ? createProfile() : nextQuestion(document.getElementById('createprofile-'+i).value)} className='createprofile-buttons-next'>
+                        <button onClick={() => nextQuestion(isLastQuestion, document.getElementById('createprofile-'+i).value)} className='createprofile-buttons-next'>
                             {isLastQuestion ? 'Submit' : 'Next'}
                         </button>
-                    </div>
-                    
+                    </div>    
                 </div>
             )
         } else {

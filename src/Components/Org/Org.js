@@ -18,6 +18,8 @@ function Org() {
     const [userInfo, setUserInfo] = useState({})
     const [orgInfo, setOrgInfo] = useState({})
 
+    const [displayContents, setDisplayContents] = useState(false)
+
     function getUserInfo() {
         const requestOptions = {
             credentials: 'include',
@@ -34,6 +36,7 @@ function Org() {
                         .then(data2 => {
                             if (data2.status === 'success') {
                                 navigate(`/org/${id}`)
+                                setDisplayContents(true)
                             } else {
                                 navigate(`/createprofile/${id}`)
                             }
@@ -68,7 +71,7 @@ function Org() {
     function isReady1() {
         // check if the team has 2 members
         // can change this in future, 2 members is only for testing
-        if (orgInfo.members?.length == 3 && orgInfo.viewed?.length == 3) {
+        if (orgInfo.members?.length == 5 && orgInfo.viewed?.length == 5) {
             setReady1(true)
         }
     }
@@ -92,7 +95,7 @@ function Org() {
 
     function displayMembers() {
         return (
-            orgInfo.members?.map((member, i) => {   
+            orgInfo.members?.map((member) => {   
                 console.log(member)
                 if (member._id !== userInfo._id ) {
                     return (
@@ -108,6 +111,40 @@ function Org() {
         )
     }
 
+    function newAccessCode() {
+        const requestOptions = {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ })
+        }
+        fetch(`${domain}/api/org/${id}/accessCode`, requestOptions)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+    }
+
+    function deleteAccessCodeAndMakeNewAccessCode() {
+        const requestOptions = {
+            credentials: 'include',
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ })
+        }
+        fetch(`${domain}/api/org/${id}/accessCode`, requestOptions)
+        .then(res => res.json())
+        .then(data => {
+            newAccessCode()
+        })
+    }
+
     useEffect(() => {
         getUserInfo();
         getOrgInfo();
@@ -118,35 +155,45 @@ function Org() {
         isReady2();
     }, [orgInfo])
 
-    return (
-        <div className='org'>
-            <div className='org-header'>
-                {/* will change this h2 to an input field later */}
-                <h2>{orgInfo.name}</h2>
-                <img src={edit} />
-            </div>
 
-            <div className='org-members'>
-                {displayMembers()} 
-            </div>
 
-            <div className='org-buttons'>
-                <button onClick={() => navigate(`/org/teamagreement/${id}`)} disabled={!ready1} className='org-buttons-teamagreement'>
-                    Team Agreement
-                    {!ready1 ? <img src={lock}/> : <img src={openlock}/>}
-                    
-                </button>
-                <button onClick={() => navigate(`/org/pulse/${id}`)} disabled={!ready2} className='org-buttons-pulse'>
-                    Pulse
-                    {!ready2 ? <img src={lock}/> : <img src={openlock}/>}
-                </button>
-                <button className='org-buttons-weeklyagreement' onClick={() => console.log(orgInfo)}>
-                    what do i put here
-                    {/* {!ready1 ? <img src={lock}/> : <img src={openlock}/>} */}
-                </button>
+    if (displayContents) {
+        return (
+            <div className='org'>
+                <div className='org-header'>
+                    {/* will change this h2 to an input field later */}
+                    <h2>{orgInfo.name}</h2>
+                    <img src={edit} />
+                </div>
+    
+                <div className='org-members'>
+                    {displayMembers()} 
+                </div>
+    
+                <div className='org-buttons'>
+                    <button onClick={() => navigate(`/org/teamagreement/${id}`)} disabled={!ready1} className='org-buttons-teamagreement'>
+                        Team Agreement
+                        {!ready1 ? <img src={lock}/> : <img src={openlock}/>}
+                        
+                    </button>
+                    <button onClick={() => navigate(`/org/pulse/${id}`)} disabled={!ready2} className='org-buttons-pulse'>
+                        Pulse
+                        {!ready2 ? <img src={lock}/> : <img src={openlock}/>}
+                    </button>
+                    <button className='org-buttons-weeklyagreement' onClick={deleteAccessCodeAndMakeNewAccessCode}>
+                        make join code
+                        {/* {!ready1 ? <img src={lock}/> : <img src={openlock}/>} */}
+                    </button>
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (
+            <h1>Loading</h1>
+        )
+    }
+
+    
 }
 
 export default Org

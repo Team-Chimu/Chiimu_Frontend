@@ -4,7 +4,7 @@ import { domain } from '../../../../domain.js';
 import './PulseResponse.css'
 import Pie from "./PieChart";
 import {ProgressBar} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 function PulseResponse() {
 
