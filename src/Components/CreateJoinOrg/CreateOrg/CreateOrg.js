@@ -40,12 +40,8 @@ function CreateOrg() {
             })
     }
 
-    
-    
-
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-
 
     useEffect(() => {
         getUserInfo();
@@ -67,7 +63,7 @@ function CreateOrg() {
                 <div className='createorg-inputfields'>
                     <h3>What's your group description?</h3>
                     <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} className='createorg-input' />
-                    <button onClick={() => navigate(`/staging`, {state: {name: name, description: description}, replace: false})}>submit</button>
+                    <button onClick={() => navigate(`/stagingcreator`, {state: {name: name, description: description}, replace: false})}>submit</button>
                 </div>
             )
         }
