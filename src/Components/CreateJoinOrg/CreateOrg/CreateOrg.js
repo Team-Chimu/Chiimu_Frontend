@@ -40,35 +40,8 @@ function CreateOrg() {
             })
     }
 
-    
-    
-
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-
-    function addOrgHandler() {
-        const requestOptions = {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name: name, description: description })
-        }
-        fetch(`${domain}/api/org/create`, requestOptions)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if (data.status === 'success') {
-                    console.log('successfully created org');
-                    navigate('/home')
-                    window.location.reload(false)
-                } else {
-                    console.log('unable to create org');
-                }
-            })
-    }
 
     useEffect(() => {
         getUserInfo();
@@ -90,7 +63,7 @@ function CreateOrg() {
                 <div className='createorg-inputfields'>
                     <h3>What's your group description?</h3>
                     <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} className='createorg-input' />
-                    <button onClick={addOrgHandler}>submit</button>
+                    <button onClick={() => navigate(`/stagingcreator`, {state: {name: name, description: description}, replace: false})}>submit</button>
                 </div>
             )
         }

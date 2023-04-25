@@ -9,8 +9,10 @@ import Org from './Components/Org/Org.js';
 import CreateProfile from './Components/CreateProfile/CreateProfile.js';
 import CreateJoinOrg from './Components/CreateJoinOrg/CreateJoinOrg.js';
 import CreateOrg from './Components/CreateJoinOrg/CreateOrg/CreateOrg.js';
-import OrgProfile from './Components/Org/OrgProfile/OrgProfile.js';
 import JoinOrg from './Components/CreateJoinOrg/JoinOrg/JoinOrg.js';
+import StagingCreator from './Components/Staging/StagingCreator/StagingCreator.js';
+import StagingJoiner from './Components/Staging/StagingJoiner/StagingJoiner.js';
+import OrgProfile from './Components/Org/OrgProfile/OrgProfile.js';
 import PageNotFound from './Components/PageNotFound/PageNotFound.js';
 import TeamAgreement from './Components/Org/TeamAgreement/TeamAgreement.js';
 import Pulse from './Components/Org/Pulse/Pulse.js';
@@ -29,6 +31,8 @@ function App() {
                 <Route path='/createjoinorg' element={< CreateJoinOrg /> }/>
                 <Route path='/createorg' element={<CreateOrg /> }/>
                 <Route path='/joinorg' element={<JoinOrg /> } />
+                <Route path='/stagingcreator' element={<StagingCreator />} />
+                <Route path='/stagingjoiner' element={<StagingJoiner />} />
                 <Route path='/org/:id' element={<Org /> } />
                 <Route path='/org/orgprofile/:id' element={ <OrgProfile /> } />
                 <Route path='/org/teamagreement/:id' element={ <TeamAgreement /> } />
