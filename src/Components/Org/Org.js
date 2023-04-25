@@ -71,7 +71,7 @@ function Org() {
     function isReady1() {
         // check if the team has 2 members
         // can change this in future, 2 members is only for testing
-        if (orgInfo.members?.length == 5 && orgInfo.viewed?.length == 5) {
+        if (orgInfo.members?.length == 2 && orgInfo.viewed?.length == 2) {
             setReady1(true)
         }
     }
