@@ -8,10 +8,10 @@ function StagingCreator() {
     let navigate = useNavigate();
     const location = useLocation();
     const [userInfo, setUserInfo] = useState({})
-    const [accessCode, setAccessCode] = useState()
-
+    
     const name = location.state.name;
     const description = location.state.description;
+    const accessCode = location.state.accessCode;
 
     function getUserInfo() {
         const requestOptions = {
@@ -23,7 +23,6 @@ function StagingCreator() {
             .then(data => {
                 if (data.status === 'success') {
                     setUserInfo(data)
-                    deleteAccessCodeAndMakeNewAccessCode()
                 } else {
                     console.log(data.error);
                     navigate('/');
@@ -56,41 +55,7 @@ function StagingCreator() {
             })
     }
 
-    function newAccessCode() {
-        const requestOptions = {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ })
-        }
-        fetch(`${domain}/api/org/accesscode`, requestOptions)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            setAccessCode(data.accessCode)
-        })
-    }
 
-    function deleteAccessCodeAndMakeNewAccessCode() {
-        const requestOptions = {
-            credentials: 'include',
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ })
-        }
-        fetch(`${domain}/api/org/accesscode`, requestOptions)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            newAccessCode()
-        })
-    }
 
     useEffect(() => {
         getUserInfo()
