@@ -28,9 +28,10 @@
 .signup .signup-inputs input {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
-    height: 1.6em;
-    border-radius: .5em;
+    height: 2.5em;
+    border-radius: .7em;
     border: 3px solid rgba(0, 88, 85, 0.3);
+    padding-left: .7em;
 }
 
 .signup button {

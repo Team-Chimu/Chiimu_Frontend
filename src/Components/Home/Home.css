@@ -32,6 +32,8 @@
 }
 
 .home-teamcard {
+    display: flex;
+    flex-direction: column;
     border-radius: 1em;
     margin: 20px 20px 20px 20px;
     position: relative;
@@ -40,6 +42,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.home-teamcard p {
+    margin: 0;
+    position: relative;
+    top: .5em;
+}
+
+.home-teamcard-name {
+    font-size: 1.2em;
+}
+
+.home-teamcard-quarteroffered {
+    font-size: .7em;
+    color: white;
 }
 
 .home-teamcard img {

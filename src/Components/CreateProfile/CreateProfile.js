@@ -71,7 +71,8 @@ function CreateProfile() {
                 if (data.status === 'success') {
                     console.log('successfully created user profile')
                     if (userInfo.standing == undefined) updateProfile()
-                    navigate(`/org/${id}`);
+                    // navigate(`/org/${id}`);
+                    navigate('/home')
                 } else {
                     console.log(data.error);
                 }

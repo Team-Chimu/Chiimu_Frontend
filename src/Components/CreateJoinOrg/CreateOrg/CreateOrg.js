@@ -40,8 +40,9 @@ function CreateOrg() {
             })
     }
 
+    const [courseTitle, setCourseTitle] = useState('');
+    const [quarterOffered, setQuarterOffered] = useState('');
     const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
 
     function newAccessCode() {
         const requestOptions = {
@@ -56,7 +57,7 @@ function CreateOrg() {
         fetch(`${domain}/api/org/accesscode`, requestOptions)
         .then(res => res.json())
         .then(data => {
-            navigate(`/stagingcreator`, {state: {name: name, description: description, accessCode: data.accessCode}, replace: false})
+            navigate(`/stagingcreator`, {state: {courseTitle: courseTitle, quarterOffered: quarterOffered, name: name, accessCode: data.accessCode}, replace: false})
         })
     }
 
@@ -88,21 +89,28 @@ function CreateOrg() {
         if (questionNum == 0) {
             return(
                 <div className='createorg-inputfields'>
-                    <h3>What's your group name?</h3>
-                    <input type='text' placeholder='name' onChange={e => setName(e.target.value)} className='createorg-input'/>
+                    <h3>Enter the course title</h3>
+                    <input type='text' placeholder='course title' onChange={e => setCourseTitle(e.target.value)} className='createorg-input'/>
+                    <button onClick={nextQuestion}>next</button>
+                </div>
+            )
+        } else if (questionNum == 1) {
+            return(
+                <div className='createorg-inputfields'>
+                    <h3>Enter the quarter offered</h3>
+                    <input type='text' placeholder='quarter offered' onChange={e => setQuarterOffered(e.target.value)} className='createorg-input' />
                     <button onClick={nextQuestion}>next</button>
                 </div>
             )
         } else {
             return(
                 <div className='createorg-inputfields'>
-                    <h3>What's your group description?</h3>
-                    <input type='text' placeholder='description' onChange={e => setDescription(e.target.value)} className='createorg-input' />
+                    <h3>Enter your group name</h3>
+                    <input type='text' placeholder='name' onChange={e => setName(e.target.value)} className='createorg-input' />
                     <button onClick={deleteAccessCodeAndMakeNewAccessCode}>submit</button>
                 </div>
             )
         }
-        // () => navigate(`/stagingcreator`, {state: {name: name, description: description}, replace: false})
     }
 
     function nextQuestion() {

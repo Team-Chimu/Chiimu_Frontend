@@ -39,7 +39,11 @@ function Landing() {
             <div className='landing-imgbackground'>
                 <img src={logo}/>
             </div>
-            <h1>Chimu</h1>
+            <div className='landing-title'>
+                <h1>Chimu</h1>
+                <h3>Teams in Motion</h3>
+            </div>
+            
             <div className='landing-buttons'>
                 <button className='landing-buttons-signin' onClick={() => navigate('/signin')}>sign in</button>
                 <button className='landing-buttons-signup' onClick={() => navigate('/signup')}>sign up</button>

@@ -33,8 +33,10 @@ function Home() {
             .then(data => {
                 if (data.status === 'success') {
                     setUserInfo(data)
-                    console.log('loaded user information');
                     console.log(data)
+                    if (data.orgs.length == 0) {
+                        navigate('/createjoinorg')
+                    }
                 } else {
                     console.log(data.error);
                     navigate('/');
@@ -97,7 +99,8 @@ function Home() {
                         userInfo.orgs.map((item) => {        
                             return (
                                 <div className='home-teamcard' key={item._id._id} onClick={() => loadOrgPageHandler(item._id._id)} style={{backgroundColor: colors[counter == 3 ? counter = 1 : ++counter]}}>
-                                    <p>{item._id.name}</p>
+                                    <p className='home-teamcard-name'>{item._id.name}</p>
+                                    <p className='home-teamcard-quarteroffered'>{item._id.quarterOffered}</p>
                                 </div>
                             )
                         })

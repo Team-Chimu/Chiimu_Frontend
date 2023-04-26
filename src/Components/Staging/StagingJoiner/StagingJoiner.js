@@ -6,7 +6,6 @@ import './StagingJoiner.css'
 function StagingJoiner() {
     let navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({})
-    
     function getUserInfo() {
         const requestOptions = {
             credentials: 'include',
