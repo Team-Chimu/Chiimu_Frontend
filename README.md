@@ -61,24 +61,29 @@ Tadashi uses the node packet manager to handle the build and inclusion of packag
 To handle API requests, ExpressJS is used to route and send data through the web. API requests are structured in a standard REST format.
 - [ExpressJS](https://expressjs.com/)
 
-### File Structure
-Below is the general outline of the file structre in the Chīmu repo:
+### File Structure **EDIT**
+Below is the general outline of file structure in the Chimu repo:
 ```
-root
-├── database
-│   └── database.js (schema)
+src
+└──components
+│   └── CreateJoinOrg/
+│   └── CreateProfile/
+│   └── Home/
+│   └── Landing/
+│   └── Navbar/
+│   └── Org/
+│   └── PageNotFound/
+|   └── SetProfilePicture/
+|   └── Staging/
 │
-├── routes
-│   ├── (functions).js
-│   └── api
-│       └── (handlers).js
-│
-├── public
-│   └── (api front-end unused)
-│
-├── app.js (entry)
+├── App.js (entry)
+├── domain.js (domain.js)
+├── index.js (caller)
 └── package.json
 ```
+
+> Recommend: Use [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi), a Chrome DevTools extension, allows you to inspect the React component hierarchies in the Chrome Developer Tools.
+
 ---
 ## Infrastructure
 Chīmu is hosted on two separate deployments, the API and the client. The general purpose is to make management of these services indepenent of one another, without requiring takedown of boths services. This can be changed to a single deployment by merging the client and front end repos.
