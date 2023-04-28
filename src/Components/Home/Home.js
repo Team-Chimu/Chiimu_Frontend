@@ -90,7 +90,7 @@ function Home() {
         return (
             <div className='home'> 
                 <div className='home-header'>
-                    <h2>Hello, {userInfo.displayName}</h2>
+                    <h2>Hello, {userInfo.firstName}</h2>
                     <img src={userInfo.profilePic == '' ? placeholderImg : userInfo.profilePic } onClick={() => navigate('/profilepic')}/>
                 </div>
                 

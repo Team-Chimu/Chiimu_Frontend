@@ -92,6 +92,15 @@ function Org() {
             })
     }
 
+    function displayName(firstName, lastInit) {
+        let text = firstName + " " + lastInit
+        if (text.length > 8) {
+            text = text.substring(0, 6) + "..."
+        }
+        return(
+            <p>{text}</p>
+        )
+    }
 
     function displayMembers() {
         return (
@@ -99,50 +108,16 @@ function Org() {
                 console.log(member)
                 if (member._id !== userInfo._id ) {
                     return (
-                        <div key={member._id} onClick={() => navigate(`/org/orgprofile/${id}`, {state: {allUsers: orgInfo.members}, replace: false})}>
+                        <div key={member._id} onClick={() => navigate(`/org/orgprofile/${id}/${member._id}`)}>
                             <div>
                                 {member.profilePic == '' ? <img src={placeholderPic} /> : <img src={member.profilePic} /> }
                             </div>
-                            {member.displayName}
+                            {displayName(member.firstName, member.lastName.charAt(0))}                          
                         </div>
                     )
                 }
             })
         )
-    }
-
-    function newAccessCode() {
-        const requestOptions = {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ })
-        }
-        fetch(`${domain}/api/org/${id}/accessCode`, requestOptions)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-        })
-    }
-
-    function deleteAccessCodeAndMakeNewAccessCode() {
-        const requestOptions = {
-            credentials: 'include',
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ })
-        }
-        fetch(`${domain}/api/org/${id}/accessCode`, requestOptions)
-        .then(res => res.json())
-        .then(data => {
-            newAccessCode()
-        })
     }
 
     useEffect(() => {
@@ -180,8 +155,8 @@ function Org() {
                         Pulse
                         {!ready2 ? <img src={lock}/> : <img src={openlock}/>}
                     </button>
-                    <button className='org-buttons-weeklyagreement' onClick={deleteAccessCodeAndMakeNewAccessCode}>
-                        make join code
+                    <button className='org-buttons-weeklyagreement' >
+                        nothing
                         {/* {!ready1 ? <img src={lock}/> : <img src={openlock}/>} */}
                     </button>
                 </div>
