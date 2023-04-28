@@ -44,8 +44,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.org-members > div p {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
+    font-size: 0.85em;
+    margin: 0;
+    padding-top: .5em;
 }
 
 .org-members > div div {

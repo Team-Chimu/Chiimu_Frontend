@@ -34,7 +34,7 @@ function App() {
                 <Route path='/stagingcreator' element={<StagingCreator />} />
                 <Route path='/stagingjoiner' element={<StagingJoiner />} />
                 <Route path='/org/:id' element={<Org /> } />
-                <Route path='/org/orgprofile/:id' element={ <OrgProfile /> } />
+                <Route path='/org/orgprofile/:id/:uid' element={ <OrgProfile /> } />
                 <Route path='/org/teamagreement/:id' element={ <TeamAgreement /> } />
                 <Route path='/org/pulse/:id' element={ <Pulse /> } />
                 <Route path='/org/pulse/:id/:week' element={ <PulseResponse /> } />

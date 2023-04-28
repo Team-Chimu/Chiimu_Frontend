@@ -9,8 +9,9 @@ function SignUp() {
     let navigate = useNavigate();
 
     // variables for email, password, and name
-    // values are update when text fields change\
-    const [name, setName] = useState('');
+    // values are update when text fields change
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -27,7 +28,7 @@ function SignUp() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: email, password: password, name: name, usertype: userType })
+            body: JSON.stringify({ email: email, password: password, firstName: firstName, lastName: lastName, usertype: userType })
         }
         if (password == confirmPassword) {
             fetch(`${domain}/login/signup`, requestOptions)
@@ -76,7 +77,8 @@ function SignUp() {
                 <h2>Please sign up to continue.</h2>
             </div>
             <div className='signup-inputs'>
-                <input type='text' placeholder='Username' onChange={e => setName(e.target.value)} />
+                <input type='text' placeholder='First Name' onChange={e => setFirstName(e.target.value)} />
+                <input type='text' placeholder='Last Name' onChange={e => setLastName(e.target.value)} />
                 <input type='text' placeholder='Email' onChange={e => setEmail(e.target.value)} />
                 <input type='text' placeholder='Password' onChange={e => setPassword(e.target.value)} />
                 <input type='text' placeholder='Confirm Password' onChange={e => setConfirmPassword(e.target.value)} />
