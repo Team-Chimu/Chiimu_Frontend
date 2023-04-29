@@ -69,8 +69,8 @@ function Org() {
 
     const [ready1, setReady1] = useState(false)
     function isReady1() {
-        // check if the team has 2 members
-        // can change this in future, 2 members is only for testing
+        // test later
+        // if (orgInfo.members?.length == orgInfo.viewed?.length)
         if (orgInfo.members?.length == 2 && orgInfo.viewed?.length == 2) {
             setReady1(true)
         }
@@ -92,6 +92,7 @@ function Org() {
             })
     }
 
+    // maybe try and make the text smaller later
     function displayName(firstName, lastInit) {
         let text = firstName + " " + lastInit
         if (text.length > 8) {

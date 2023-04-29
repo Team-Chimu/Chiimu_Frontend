@@ -10,10 +10,15 @@ function Navbar() {
 
   const blacklistedPaths = ['/']
 
+  function goHome() {
+    navigate('/home')
+    window.location.reload(false)
+  }
+
   if (!blacklistedPaths.includes(window.location.pathname)) {
     return (
       <div className='navbar'>
-        <img src={backArrow} onClick={() => navigate('/home')} />
+        <img src={backArrow} onClick={goHome} />
       </div>
     )
   }

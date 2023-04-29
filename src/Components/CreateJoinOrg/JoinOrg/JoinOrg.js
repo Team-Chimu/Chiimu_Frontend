@@ -52,13 +52,12 @@ function JoinOrg() {
       },
       body: JSON.stringify({ accessCode: accessCode })
     }
-    fetch(`${domain}/api/org/join`, requestOptions)
+    fetch(`${domain}/api/orgaccesscode/join`, requestOptions)
     .then(res => res.json())
     .then(data => {
         if (data.status === 'success') {
             console.log('valid access code')
-            console.log(data)
-            navigate('/stagingjoiner')
+            navigate('/stagingjoiner', {state: {accessCode: accessCode}, replace: false})
             //window.location.reload(false)
         } else if (data.error == 'code does not exist') {
             console.log('access code has expired or does not exist')

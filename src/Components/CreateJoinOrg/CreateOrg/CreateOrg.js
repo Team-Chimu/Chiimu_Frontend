@@ -54,7 +54,7 @@ function CreateOrg() {
             },
             body: JSON.stringify({ })
         }
-        fetch(`${domain}/api/org/accesscode`, requestOptions)
+        fetch(`${domain}/api/orgaccesscode/create`, requestOptions)
         .then(res => res.json())
         .then(data => {
             navigate(`/stagingcreator`, {state: {courseTitle: courseTitle, quarterOffered: quarterOffered, name: name, accessCode: data.accessCode}, replace: false})
@@ -71,7 +71,7 @@ function CreateOrg() {
             },
             body: JSON.stringify({ })
         }
-        fetch(`${domain}/api/org/accesscode`, requestOptions)
+        fetch(`${domain}/api/orgaccesscode/delete`, requestOptions)
         .then(res => res.json())
         .then(data => {
             console.log(data)
