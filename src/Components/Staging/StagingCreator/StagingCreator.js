@@ -87,7 +87,7 @@ function StagingCreator() {
                     }
                 }
             })
-        }, 5000);
+        }, 4000);
     }
     
     useEffect(() => {

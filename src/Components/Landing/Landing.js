@@ -48,7 +48,7 @@ function Landing() {
                 <button className='landing-buttons-signin' onClick={() => navigate('/signin')}>sign in</button>
                 <button className='landing-buttons-signup' onClick={() => navigate('/signup')}>sign up</button>
             </div>
-            
+
         </div>
     )
 

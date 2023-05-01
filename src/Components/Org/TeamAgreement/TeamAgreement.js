@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { domain } from '../../../domain.js';
+import edit from '../../../images/edit-grey.png';
+import x from '../../../images/x.png';
+import { AutoScaleTextArea } from '../../../Tools/AutoScaleTextInput.js';
 import './TeamAgreement.css'
 
 function TeamAgreement() {
@@ -29,9 +32,9 @@ function TeamAgreement() {
             })
     }
 
-    const [teamGoals, setTeamGoals] = useState([])
+    const [teamGoals, setTeamGoals] = useState('')
     const [meetingTimes, setMeetingTimes] = useState([])
-    const [communicationChannels, setCommunicationChannels] = useState([])
+    const [communicationChannels, setCommunicationChannels] = useState('')
     const [pulse, setPulse] = useState([]);
 
     let weekTable = {
@@ -44,7 +47,7 @@ function TeamAgreement() {
         '7' : 'Sunday'
     }
 
-    function updateTeamAgreement() {
+    function createTeamAgreement() {
         const requestOptions = {
             credentials: 'include',
             method: 'POST',
@@ -65,6 +68,12 @@ function TeamAgreement() {
             })
     }
 
+    function updateTeamAgreement() {
+        console.log('to do')
+    }
+
+    const [hasTeamAgreementInfo, setHasTeamAgreementInfo] = useState(false)
+
     function getTeamAgreement() {
         const requestOptions = {
             credentials: 'include',
@@ -75,8 +84,9 @@ function TeamAgreement() {
             .then(data => {
                 if (data.status === 'success') {
                     setTeamAgreementInfo(data)
-                    console.log('loaded team agreement information');
-                    console.log(data)
+                    setHasTeamAgreementInfo(true)
+                    setTeamGoals(data.teamGoals)
+                    setCommunicationChannels(data.communicationChannels)
                 }
             })
     }
@@ -92,17 +102,20 @@ function TeamAgreement() {
     function displayMeetingTimes() {
         let arrOfArr = teamAgreementInfo.meetingTimes
         return(
-            arrOfArr?.map(({ weekday, startHour, startMinute, endHour, endMinute }, i) => {
-                if (startMinute < 10) startMinute = 0 + startMinute
-                if (endMinute < 10) endMinute = 0 + endMinute
-                return(
-                    <p key={i}>{weekTable[weekday]} {startHour}:{startMinute} - {endHour}:{endMinute}</p>
-                )
-            })
+            <ul>
+                {
+                    arrOfArr?.map(({ weekday, startHour, startMinute, endHour, endMinute }, i) => {
+                        if (startMinute < 10) startMinute = 0 + startMinute
+                        if (endMinute < 10) endMinute = 0 + endMinute
+                        return(
+                            <li key={i}>{weekTable[weekday]} {startHour}:{startMinute} - {endHour}:{endMinute}</li>
+                        )
+                    })
+                } 
+            </ul>
+            
         )
     }
-
-
 
     function handlePulse() {
         let content = []
@@ -123,6 +136,65 @@ function TeamAgreement() {
         )
     }
 
+    const [isEditingTeamNorms, setIsEditingTeamNorms] = useState(false)
+    function editTeamNorms() {
+        function handleSave() {
+            setTeamGoals(document.getElementById('teamagreement-teamnorms-input').value)
+            setIsEditingTeamNorms(false)
+        }
+        if (isEditingTeamNorms) {
+            return(
+                <>
+                    <textarea id='teamagreement-teamnorms-input' className='teamagreement-input-textarea' defaultValue={teamGoals} />
+                    <div className='teamagreement-input-button'>
+                        <button onClick={handleSave}>Save</button>
+                    </div>
+                </>
+            )  
+        }
+    }
+
+    const [isEditingCommunicationChannels, setIsEditingCommunicationChannels] = useState(false)
+    function editCommunicationChannels() {
+        function handleSave() {
+            setCommunicationChannels(document.getElementById('teamagreement-communicationchannels-input').value)
+            setIsEditingCommunicationChannels(false)
+        }
+        if (isEditingCommunicationChannels) {
+            return(
+                <>
+                    <textarea id='teamagreement-communicationchannels-input' className='teamagreement-input-textarea' defaultValue={communicationChannels} />
+                    <div className='teamagreement-input-button'>
+                        <button onClick={handleSave}>Save</button>
+                    </div>
+                </>
+            )  
+        }
+    }
+
+    function parseStringToList(bigString) {
+        if (bigString == null) return;
+        let result = []
+        let curr = ''
+        for (let i = 0; i < bigString.length; i++) {
+            curr += bigString.at(i);
+            if (bigString.at(i) == '\n') {
+                result.push(curr)
+                curr = ''
+            }
+        }
+        result.push(curr)
+        return(
+            <>
+                {
+                    result.map((item, i) => (
+                        <p key={i}>{item}</p>
+                    ))
+                }
+            </> 
+        )
+    }
+
     useEffect(() => {
         getUserInfo();
         getTeamAgreement();
@@ -130,29 +202,74 @@ function TeamAgreement() {
 
 
     return (
-        <div>
-            <h1>Team Agreement</h1>
-            <h2>Team Goals</h2>
-            {
-                teamAgreementInfo.teamGoals?.map((a, i) => (
-                    <p key={i}>{a}</p>
-                ))
-            }
+        <div className='teamagreement'>
+            <div>
+                <div className='teamagreement-header'>
+                    <h1>Team Agreement</h1>
+                    {
+                        !hasTeamAgreementInfo ? 
+                        <p>
+                        Please fill out each section to complete the team agreement.
+                        Once you are done, you must enter your signature to continue.
+                        </p>
+                        :
+                        <></>
+                    }
+                    
+                </div>
 
-            <h2>Regular Meeting Times</h2>
-            {displayMeetingTimes()}
+                <div className='teamagreement-input' >
+                    <div className='teamagreement-input-header'>
+                        <h2>Team Norms</h2>
+                        <img src={!isEditingTeamNorms ? edit : x} onClick={() => setIsEditingTeamNorms(!isEditingTeamNorms)}/>
+                    </div>
+                    {
+                        !isEditingTeamNorms ?
+                        <div className='teamagreement-input-content'>
+                            {/* {hasTeamAgreementInfo ? <p>What are the norms that all members pledge to follow?</p> : <></>}  */}
+                            {parseStringToList(teamGoals)}
+                        </div>
+                        :
+                        <></>
+                    }        
+                    {editTeamNorms()}
+                </div>
+                
+                <div className='teamagreement-input'>
+                    <div className='teamagreement-input-header'>
+                        <h2>Communication Channels</h2>
+                        <img src={!isEditingCommunicationChannels ? edit : x} onClick={() => setIsEditingCommunicationChannels(!isEditingCommunicationChannels)}/>
+                    </div>
+                    {
+                        !isEditingCommunicationChannels ?
+                        <div className='teamagreement-input-content'>
+                            {parseStringToList(communicationChannels)}
+                        </div>
+                        :
+                        <></>
+                    }
+                    
+                    {editCommunicationChannels()}
+                </div>
 
-            <h2>Communication Channels</h2>
-            {
-                teamAgreementInfo.communicationChannels?.map((a, i) => (
-                    <p key={i}>{a}</p>
-                ))
-            }
+                <div className='teamagreement-input'>
+                    <div className='teamagreement-input-header'>
+                        <h2>Meeting Times</h2>
+                        {hasTeamAgreementInfo ? <img src={edit}/> : <></>}
+                    </div>
+                    
+                    <div className='teamagreement-input-content'>
+                        {displayMeetingTimes()}
+                    </div>
+                    <div className='teamagreement-input-button'>
+                        <button>Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            {/* {displayPulse()} */}
 
-            <h2>Pulse</h2>
-            {displayPulse()}
-
-            <h3>Team Goals</h3>
+            {/* <h3>Team Norms</h3>
             <input type='text' placeholder='input' id='teamagreement-teamgoals'/>
             <button onClick={() => setTeamGoals(arr => [...arr, document.getElementById('teamagreement-teamgoals').value])}>add</button>
             <div>
@@ -163,7 +280,7 @@ function TeamAgreement() {
                         )
                     })
                 }
-            </div>
+            </div> */}
             <br />
 
             <h3>Regular Meeting Times</h3>
@@ -184,7 +301,7 @@ function TeamAgreement() {
             </div>
             <br />
 
-            <h3>Communication Channels</h3>
+            {/* <h3>Communication Channels</h3>
             <input type='text' placeholder='input' id='teamagreement-communicationchannels'/>
             <button onClick={() => setCommunicationChannels(arr => [...arr, document.getElementById('teamagreement-communicationchannels').value])}>add</button>
             <div>
@@ -196,7 +313,7 @@ function TeamAgreement() {
                     })
                 }
             </div>
-            <br />
+            <br /> */}
 
             <h3>Pulse</h3>
             <input type='text' placeholder='day' id='teamagreement-pulse-0'/>
@@ -208,8 +325,8 @@ function TeamAgreement() {
             </div>
             <br />
 
-            <button onClick={updateTeamAgreement}>submit</button>
-            <button onClick={() => navigate(`/org/${id}`)}>go home</button>
+            <button onClick={!hasTeamAgreementInfo ? createTeamAgreement : updateTeamAgreement}>submit changes</button>
+            <button onClick={() => console.log(teamAgreementInfo)}>testing</button>
         </div>
     )
 }

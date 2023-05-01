@@ -66,7 +66,7 @@ function StagingJoiner() {
                     }
                 }
             })
-        }, 5000);
+        }, 4000);
     }
 
     useEffect(() => {
