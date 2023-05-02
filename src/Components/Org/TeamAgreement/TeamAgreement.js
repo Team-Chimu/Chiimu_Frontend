@@ -22,8 +22,6 @@ function TeamAgreement() {
             .then(data => {
                 if (data.status === 'success') {
                     setUserInfo(data)
-                    console.log('loaded user information');
-                    console.log(data)
                 } else {
                     console.log(data.error);
                     navigate('/');
@@ -68,7 +66,24 @@ function TeamAgreement() {
     }
 
     function updateTeamAgreement() {
-        console.log('implement put')
+        const requestOptions = {
+            credentials: 'include',
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ orgid: id, teamGoals: teamGoals, meetingTimes: meetingTimes, communicationChannels: communicationChannels, pulse: pulse })
+        }
+        fetch(`${domain}/api/teamAgreement/edit`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    navigate(`/org/${id}`)
+                } else {
+                    console.log(data.error);
+                }
+            })
     }
 
     const [hasTeamAgreementInfo, setHasTeamAgreementInfo] = useState(false)
@@ -86,20 +101,10 @@ function TeamAgreement() {
                     setTeamGoals(data.teamGoals)
                     setCommunicationChannels(data.communicationChannels)
                     setMeetingTimes(data.meetingTimes)
+                    setPulse(data.pulse)
                 }
             })
     }
-
-    // function displayPulse() {
-    //     let arr = pulse
-    //     let day = weekTable[arr?.weekday]
-    //     let hour = arr?.hour
-    //     let minute = arr?.minute
-    //     if (minute < 10) minute = 0 + minute
-    //     return(
-    //         <p>{day} {hour}:{minute}</p>
-    //     )
-    // }
 
     const [temp1, setTemp1] = useState("")
     const temp1Ref = useRef(null)
@@ -190,6 +195,57 @@ function TeamAgreement() {
                 </div>
             </>
         )  
+    }
+
+    const [pulseDay, setPulseDay] = useState(1)
+    const [pulseTime, setPulseTime] = useState('00:00')
+    const [isEditingPulse, setIsEditingPulse] = useState(false)
+    function editPulse() {
+        function handleSave() {
+            let timeArr = pulseTime.split(':')
+            setPulse({
+                weekday : pulseDay,
+                hour : timeArr[0], 
+                minute : timeArr[1]
+            })
+            setIsEditingPulse(false)
+        }
+        return(
+            <>
+                <div className='teamagreement-input-back'>
+                    <select onChange={e => setPulseDay(e.target.value)}>
+                        {
+                            Object.values(weekTable).map((d, i) => (
+                                <option key={i + 1} value={i + 1}>{d}</option>
+                            ))
+                        }
+                    </select>
+                    <input type="time" id="appt" name="appt" onChange={e => setPulseTime(e.target.value)}></input>
+                    <button onClick={() => console.log(pulseDay)}>day</button>
+                    <button onClick={() => console.log(pulseTime)}>time</button>
+                </div>
+                <div className='teamagreement-input-button'>
+                    <button onClick={handleSave}>Save</button>
+                </div>
+            </>
+        )  
+    }
+
+    function displayPulse() {
+        let weekDay = weekTable[pulse.weekday]
+        let hour = parseInt(pulse.hour)
+        let minute = pulse.minute
+        let ampm = 'AM';
+        if (hour == 0) {
+            hour += 12
+        }
+        if (hour > 12) {
+            hour -= 12
+            ampm = 'PM'
+        }
+        return(
+            <p className='teamagreement-pulse'>Every: {weekDay} {hour}:{minute} {ampm}</p>
+        )
     }
 
     function parseStringToList(bigString) {
@@ -310,17 +366,30 @@ function TeamAgreement() {
                     }
                 </div>
                 
-                <div className='teamagreement-pulse'>
-
+                <div className='teamagreement-input'>
+                    <div className='teamagreement-input-header'>
+                        <h2>Pulse</h2>
+                        <img src={!isEditingPulse ? edit : x} onClick={() => setIsEditingPulse(!isEditingPulse)}/>
+                    </div>
+                    {
+                        !isEditingPulse ?
+                            pulse.weekday == null ?
+                                <></>
+                                :
+                                <div className='teamagreement-input-back'>
+                                    {displayPulse()}
+                                </div>
+                        :
+                        editPulse()
+                    }
                 </div>
-
                 <div className='teamagreement-signature'>
                     <p>Enter Your Signature Here:</p>
                     <div className='teamagreement-signature-input'>
                         <textarea onChange={e => setSigned(e.target.value)}/>
                     </div>
                 </div>
-
+                
                 <button onClick={!hasTeamAgreementInfo ? createTeamAgreement : updateTeamAgreement} 
                         className='teamagreement-submit'
                         disabled={signed == '' ? true : false}>
