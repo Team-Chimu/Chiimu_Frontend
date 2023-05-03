@@ -213,16 +213,15 @@ function TeamAgreement() {
         return(
             <>
                 <div className='teamagreement-input-back'>
-                    <select onChange={e => setPulseDay(e.target.value)}>
+                    <p className='teamagreement-pulse'>Every: </p>
+                    <select className='teamagreement-dayinput' onChange={e => setPulseDay(e.target.value)}>
                         {
                             Object.values(weekTable).map((d, i) => (
                                 <option key={i + 1} value={i + 1}>{d}</option>
                             ))
                         }
                     </select>
-                    <input type="time" id="appt" name="appt" onChange={e => setPulseTime(e.target.value)}></input>
-                    <button onClick={() => console.log(pulseDay)}>day</button>
-                    <button onClick={() => console.log(pulseTime)}>time</button>
+                    <input type="time" className='teamagreement-timeinput' onChange={e => setPulseTime(e.target.value)}></input>
                 </div>
                 <div className='teamagreement-input-button'>
                     <button onClick={handleSave}>Save</button>

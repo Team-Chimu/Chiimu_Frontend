@@ -85,7 +85,6 @@
 }
 
 .teamagreement-input-button {
-    z-index: 1;
     width: 90%;
     display: flex;
     justify-content: flex-end;
@@ -123,6 +122,32 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 0.9em;
+}
+
+.teamagreement-dayinput {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.9em;
+    border: 0;
+    position: relative;
+    bottom: 1px;
+}
+
+.teamagreement-dayinput:focus {
+    outline: none;
+}
+
+.teamagreement-timeinput {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.9em;
+    border: 0;
+    display: flex;
+    
+}
+
+.teamagreement-timeinput:focus {
+    outline: none;
 }
 
 .teamagreement-signature {
