@@ -70,10 +70,13 @@ function Org() {
     const [ready1, setReady1] = useState(false)
     function isReady1() {
         // test later
-        // if (orgInfo.members?.length == orgInfo.viewed?.length)
-        if (orgInfo.members?.length == 2 && orgInfo.viewed?.length == 2) {
-            setReady1(true)
+        if (orgInfo.members != undefined) {
+            if (orgInfo.members?.length == orgInfo.viewed?.length) {
+                // if (orgInfo.members?.length == 2 && orgInfo.viewed?.length == 2) {
+                    setReady1(true)
+                }
         }
+        
     }
 
     const [ready2, setReady2] = useState(false)

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { domain } from '../../../domain.js';
+import check from '../../../images/check.png';
 import './Pulse.css'
 
 
@@ -10,7 +11,8 @@ function Pulse() {
     let navigate = useNavigate();
 
     const [userInfo, setUserInfo] = useState({})
-    const weeks = [1, 2, 3, 4]
+    const [orgInfo, setOrgInfo] = useState({})
+    const weeks = [1]
 
     function getUserInfo() {
         const requestOptions = {
@@ -30,21 +32,42 @@ function Pulse() {
                 }
             })
     }
+    
+    function getOrgInfo() {
+        const requestOptions = {
+            credentials: 'include',
+            method: 'GET'
+        }
+        fetch(`${domain}/api/org/${id}`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // console.log('successfully got org info');
+                    console.log(data)
+                    setOrgInfo(data)
+                } else {
+                    console.log(data.error)
+                }
+            })
+    }
 
     useEffect(() => {
         getUserInfo();
+        getOrgInfo();
     }, [])
 
     return (
-        <div>
-            <h1>Pulse</h1>
+        <div className='pulse'>
+            <div className='pulse-header'>
+                <h1>Pulse</h1>
+            </div>
             {
                 weeks.map((e) => {
                     return(
-                        <React.Fragment key={e}>
-                            <button onClick={() => navigate(`${e}`)}>Week {e} Pulse</button>
-                            <br />
-                        </React.Fragment>
+                        <div className='pulse-weeks' key={e} onClick={() => navigate(`${e}`)}>
+                            <p>Week {e}</p>
+                            <img src={check}/>
+                        </div>
                         
                     )
                 })
