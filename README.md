@@ -1,7 +1,7 @@
 # Chīmu: Teams in Motion
 ### **University of Washington**
 ### _Information School Capstone 2023: Team Chimu_
-- [Server Repo and Databse Structure](https://github.com/Team-Chimu/tadashi)
+- [Server Repo and Database Structure](https://github.com/Team-Chimu/tadashi)
 - [Client Repo and Design Documentation](https://github.com/Team-Chimu/Chiimu_Frontend)
 - [Landing Page](https://team-chimu.github.io/chimu-landing/)
 
@@ -39,7 +39,7 @@ Chīmu: Teams in Motion is a mobile-first web application that aims to give the 
 
 ### Acknowledgements
 This project has been guided under Professor Nam-ho, who has provided insightful feedback and monitored the progress throughout the project timeline.
-This project is a continuation of a previous iSchool project, Tadashi. More information can be viewed about this project ![here](https://ischool.uw.edu/capstone/projects/2022/tadashi-ultimate-team-experience).
+This project is a continuation of a previous iSchool project, Tadashi. More information can be viewed about this project ![here](https://speedguy00.github.io/tadashi-landing/).
 
 ### End of Life
 We plan to transition our project into open source, effective May 22nd, 2023. By the transition date, we will have shut down any systems that automatically collect user data. We also will have notified all users that their data will be deleted by this transition date. As for cloud infrastructure, we will shut down our infrastructure with MongoDB and all accounts associated with it. The code repository on GitHub will a public repository with our contact information so any groups can successfully transition to our project.
