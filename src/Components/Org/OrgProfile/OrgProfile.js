@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import { domain } from '../../../domain.js';
 import placeholderImg from '../../../images/placeholder-pic.png';
 import mail from '../../../images/mail.png';
@@ -12,6 +13,8 @@ function OrgProfile() {
     const [questionsInfo, setQuestionsInfo] = useState({})
     const [teamInfo, setTeamInfo] = useState({})
     const [orgInfo, setOrgInfo] = useState({})
+
+    const cookies = new Cookies();
 
     const navigate = useNavigate();
     let { id } = useParams();
@@ -77,17 +80,28 @@ function OrgProfile() {
     function viewedTeam() {
 
         /*
-            if i've seen everyone in this group:
-                run api endpoint to put my id into the org.viewed array
-            else if i haven't seen this person yet:
-                put this person's id into a list to keep track of people i've seen
+            if i've already seen everyone:
+                return
+            else if i haven't seen everyone yet:
+                return
             else:
-                don't do anything
+                run api
         */
+
+        let myCookie = cookies.get(userInfo._id)
+        let myCookieArr;
+        if (myCookie == undefined) {
+            myCookieArr = []
+        } else {
+            myCookieArr = myCookie.split('|')
+        }
 
         if (orgInfo.viewed.includes(userInfo._id)) {
             navigate(`/org/${id}`)
             return;
+        } else if (myCookieArr.length != orgInfo.members.length - 1) {
+            navigate(`/org/${id}`)
+            return
         }
         const requestOptions = {
             credentials: 'include',
@@ -104,16 +118,6 @@ function OrgProfile() {
             console.log(data)
             navigate(`/org/${id}`)
         })
-    }
-
-    function printThings() {
-        console.log(userInfo)
-        console.log('-----------')
-        console.log(questionsInfo)
-        console.log('-----------')
-        console.log(teamInfo)
-        console.log('-----------')
-        console.log(orgInfo)
     }
 
     useEffect(() => {
@@ -153,7 +157,7 @@ function OrgProfile() {
                             <img src={mail} className='orgprofile-contacts-card-mail'/>
                             <img src={phone} className='orgprofile-contacts-card-phone'/>
                         </div>
-                        <div>    
+                        <div>
                             <p>{teamInfo.email}</p>
                             <p>{teamInfo.phone}</p>
                         </div>

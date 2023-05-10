@@ -123,6 +123,25 @@ function CreateProfile() {
         }
     }
 
+    function prevQuestionAccount() {
+        if (questionNum != 0) {
+            setQuestionNum(questionNum - 1)
+            document.querySelector('.createprofile-input').value = ''
+            setProgress(progress - 1)
+        }
+    }
+
+    function prevQuestionProfile() {
+        if (questionNum != 5) {
+            setQuestionNum(questionNum - 1)
+            document.querySelector('.createprofile-input').value = ''
+            let temp = answers
+            temp.pop();
+            setAnswers(temp)
+            setProgress(progress - 1)
+        }
+    }
+
     useEffect(() => {
         if (markDone) {
             createProfile()
@@ -137,7 +156,7 @@ function CreateProfile() {
                         <h3>What is your Standing?</h3>
                         <input type='text' placeholder='standing' onChange={e => setStanding(e.target.value)} className='createprofile-input'/>
                         <div className='createprofile-buttons'>
-                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={prevQuestionAccount} className='createprofile-buttons-back'>Back</button>
                             <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
                         </div> 
                     </div>
@@ -148,7 +167,7 @@ function CreateProfile() {
                         <h3>What is your major?</h3>
                         <input type='text' placeholder='major' onChange={e => setMajor(e.target.value)} className='createprofile-input'/>
                         <div className='createprofile-buttons'>
-                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={prevQuestionAccount} className='createprofile-buttons-back'>Back</button>
                             <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
                         </div>
                         
@@ -160,7 +179,7 @@ function CreateProfile() {
                         <h3>What is your MBTI?</h3>
                         <input type='text' placeholder='MBTI' onChange={e => setMbti(e.target.value)} className='createprofile-input'/>
                         <div className='createprofile-buttons'>
-                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={prevQuestionAccount} className='createprofile-buttons-back'>Back</button>
                             <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
                         </div>
                         
@@ -172,7 +191,7 @@ function CreateProfile() {
                         <h3>What is your phone number?</h3>
                         <input type='text' placeholder='phone number' onChange={e => setPhone(e.target.value)} className='createprofile-input'/>
                         <div className='createprofile-buttons'>
-                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={prevQuestionAccount} className='createprofile-buttons-back'>Back</button>
                             <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
                         </div>
                         
@@ -184,7 +203,7 @@ function CreateProfile() {
                         <h3>What is your workstyle?</h3>
                         <input type='text' placeholder='workstyle' onChange={e => setWorkstyle(e.target.value)} className='createprofile-input'/>
                         <div className='createprofile-buttons'>
-                            <button className='createprofile-buttons-back'>Back</button>
+                            <button onClick={prevQuestionAccount} className='createprofile-buttons-back'>Back</button>
                             <button onClick={() => nextQuestion()} className='createprofile-buttons-next'>Next</button>
                         </div>
                         
@@ -208,7 +227,7 @@ function CreateProfile() {
                     <h3>{questions[questionNum-5]}</h3>
                     <input type='text' placeholder='answer' className='createprofile-input' id={'createprofile-'+i}/>
                     <div className='createprofile-buttons'>
-                        <button className='createprofile-buttons-back'>Back</button>
+                        <button onClick={prevQuestionProfile} className='createprofile-buttons-back'>Back</button>
                         <button onClick={() => nextQuestion(isLastQuestion, document.getElementById('createprofile-'+i).value)} className='createprofile-buttons-next'>
                             {isLastQuestion ? 'Submit' : 'Next'}
                         </button>

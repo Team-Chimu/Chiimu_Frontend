@@ -33,7 +33,6 @@ function Home() {
             .then(data => {
                 if (data.status === 'success') {
                     setUserInfo(data)
-                    console.log(data)
                     if (data.orgs.length == 0) {
                         navigate('/createjoinorg')
                     }
@@ -46,29 +45,53 @@ function Home() {
 
     // calls /login/signout endpoint
     // logs out the user and redirects back to /
-    function signOut() {
+
+    function loadOrgPageHandler(key) {
         const requestOptions = {
             credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
+            method: 'GET'
         }
-        fetch(`${domain}/login/signout`, requestOptions)
+        fetch(`${domain}/api/userprofile/${key}/${userInfo._id}`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if (data.error === 'profile not created') {
+                    navigate(`/org/${key}`)
+                } else {
+                    fetch(`${domain}/api/org/${key}`, requestOptions)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            memberDoneCount(key, data)
+                        } else {
+                            console.log(data.error)
+                        }
+                    })
+                }
+            }) 
+    }
+
+    function memberDoneCount(key, data) {
+        let memberCount = data.members.length
+        let count = 0;
+        const requestOptions = {
+            credentials: 'include',
+            method: 'GET'
+        }
+        let membersArr = data.members
+        for (let i = 0; i < membersArr.length; i++) {
+            let uid = membersArr.at(i)._id
+            fetch(`${domain}/api/userprofile/${key}/${uid}`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    console.log('successfully signed out');
-                    navigate('/');
-                } else {
-                    console.log('unable to sign out');
+                    count++
+                    if (count == memberCount) {
+                        navigate(`/org/${key}`)
+                        window.location.reload(false)
+                    }
                 }
             })
-    }
-
-    function loadOrgPageHandler(key) {
-        navigate(`/org/${key}`)
+        }
     }
 
     // load user info when page is loaded
@@ -82,7 +105,6 @@ function Home() {
             <div>
                 <h1>Home</h1>
                 <h2>Hello, {userInfo.displayName} ({userInfo.userType})</h2>
-                <button onClick={signOut}>sign out</button>
             </div>
         )
     // normal user view
@@ -109,7 +131,6 @@ function Home() {
                         <img src={addTeam}></img>
                     </div>
                 </div>
-                <button onClick={signOut}>sign out</button>
             </div>
         )
     } else {

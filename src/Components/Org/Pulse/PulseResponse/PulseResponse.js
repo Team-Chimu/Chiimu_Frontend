@@ -13,7 +13,7 @@ function PulseResponse() {
     const [userInfo, setUserInfo] = useState({})
     const [orgInfo, setOrgInfo] = useState({})
     const [pulseInfo, setPulseInfo] = useState({})
-    const [pulseStatus, setPulseStatus] = useState()
+    const [pulseStatus, setPulseStatus] = useState(2)
     const [questions, setQuestions] = useState([
         'The workload is equitably distributed?', 
         'The team is communicative and responsive?', 
@@ -191,6 +191,7 @@ function PulseResponse() {
     useEffect(() => {
         let info = pulseInfo.pulseResult
         let members = orgInfo.members
+        console.log(pulseStatus)
         if (info != undefined && members != undefined) {
             if (info.length == members.length) {
                 setPulseStatus(0)
