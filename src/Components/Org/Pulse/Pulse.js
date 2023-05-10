@@ -12,7 +12,6 @@ function Pulse() {
 
     const [userInfo, setUserInfo] = useState({})
     const [orgInfo, setOrgInfo] = useState({})
-    const weeks = [1]
 
     function getUserInfo() {
         const requestOptions = {
@@ -24,15 +23,33 @@ function Pulse() {
             .then(data => {
                 if (data.status === 'success') {
                     setUserInfo(data)
-                    console.log('loaded user information');
-                    console.log(data)
                 } else {
                     console.log(data.error);
                     navigate('/');
                 }
             })
     }
-    
+
+    const [pulseDone, setPulseDone] = useState(false);
+    function getPulseInfo() {
+        const requestOptions = {
+            credentials: 'include',
+            method: 'GET'
+        }
+        fetch(`${domain}/api/pulse/${id}/${orgInfo.weekNumber}`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let totalPeopleThatDidTheirPulse = data.pulseResult.length
+                    if (totalPeopleThatDidTheirPulse == orgInfo.members.length) {
+                        setPulseDone(true)
+                    }
+                } else {
+                    console.log(data.error)
+                }
+            })
+    }
+
     function getOrgInfo() {
         const requestOptions = {
             credentials: 'include',
@@ -43,7 +60,6 @@ function Pulse() {
             .then(data => {
                 if (data.status === 'success') {
                     // console.log('successfully got org info');
-                    console.log(data)
                     setOrgInfo(data)
                 } else {
                     console.log(data.error)
@@ -51,27 +67,46 @@ function Pulse() {
             })
     }
 
+    function displayWeeks() {
+        let weeks = []
+        for (let i = orgInfo.weekNumber; i > 0; i--) {
+            weeks.push(i)
+        }
+        return(
+            weeks.map((e) => {
+                if (e == orgInfo.weekNumber && !pulseDone) {
+                    return(
+                        <div className='pulse-weeks' key={e} onClick={() => navigate(`${e}`)} style={{backgroundColor:'#00585551'}}>
+                            <p style={{color:'black'}}>Week {e}</p>
+                        </div>
+                    )
+                } else {
+                    return(
+                        <div className='pulse-weeks' key={e} onClick={() => navigate(`${e}`)} style={{backgroundColor:'#005855c4'}}>
+                            <p>Week {e}</p>
+                            <img src={check}/>
+                        </div>
+                    )
+                }
+            })
+        )
+    }
+
     useEffect(() => {
         getUserInfo();
         getOrgInfo();
     }, [])
+
+    useEffect(() => {
+        getPulseInfo();
+    }, [orgInfo])
 
     return (
         <div className='pulse'>
             <div className='pulse-header'>
                 <h1>Pulse</h1>
             </div>
-            {
-                weeks.map((e) => {
-                    return(
-                        <div className='pulse-weeks' key={e} onClick={() => navigate(`${e}`)}>
-                            <p>Week {e}</p>
-                            <img src={check}/>
-                        </div>
-                        
-                    )
-                })
-            }
+            {displayWeeks()}
         </div>
     )
 }
