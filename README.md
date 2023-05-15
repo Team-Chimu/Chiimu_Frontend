@@ -24,8 +24,7 @@
   - Linkedin:https://www.linkedin.com/in/youjin-jung-
 
 ### Site Links
--  Client: [Chīmu Client]() 
--  Server: [Chīmu Server]()
+-  Client: [Chīmu Client](https://chimuapp.azurewebsites.net) 
 
 ### Additional Documentation
 -  Design Docs: [Chīmu Figma](https://www.figma.com/file/fhkwXAdBln63vfel1nE4OR/Team-Chimu?node-id=1%3A2&t=UGYFn1aGtxvoOA2F-1)
@@ -87,8 +86,8 @@ Our data is on a hosted NoSQL databse. Any hosted cluster that supports standard
 
 ### Services
 **Deployment**: Azure
-- Link to Server: [Chīmu Server]()
-- Link to Client: [Chimu Client]() 
+- Link to Server: [Chīmu Server](https://chimuapp.azurewebsites.net)
+<!-- - Link to Client: [Chimu Client]()  -->
 
 **NoSQL Databse**: MongoDB Atlas - Free Tier
 
@@ -112,8 +111,6 @@ For a detailed list of available fields and connections, consult `database/datab
 The API is structured in a REST-like format, with GET, POST, PUT, DELETE entries for most endpoints. Endpoints have been tested, however, further testing is required and should be automated going forward. For additional information on payloads, type returns, and expected functionality, consult comments preceding routes.
 
 API functionality is not extensive but sufficient for current implented client activities.
-
-Domain: NO LINK YET
 
 **Routes**
 
