@@ -24,8 +24,8 @@
   - Linkedin:https://www.linkedin.com/in/youjin-jung-
 
 ### Site Links
--  Client: [Chīmu Client]() NO LINKS YET
--  Server: [Chīmu Server]() NO LINKS YET
+-  Client: [Chīmu Client]() 
+-  Server: [Chīmu Server]()
 
 ### Additional Documentation
 -  Design Docs: [Chīmu Figma](https://www.figma.com/file/fhkwXAdBln63vfel1nE4OR/Team-Chimu?node-id=1%3A2&t=UGYFn1aGtxvoOA2F-1)
@@ -86,9 +86,9 @@ Chīmu is hosted on two separate deployments, the API and the client. The genera
 Our data is on a hosted NoSQL databse. Any hosted cluster that supports standard MongoDB queries shoudl eb interchangeable.
 
 ### Services
-**Deployment**: Heroku
-- Link to Server: [Chīmu Server]() NO LINK
-- Link to Client: [Chimu Client]() NO LINK
+**Deployment**: Azure
+- Link to Server: [Chīmu Server]()
+- Link to Client: [Chimu Client]() 
 
 **NoSQL Databse**: MongoDB Atlas - Free Tier
 
