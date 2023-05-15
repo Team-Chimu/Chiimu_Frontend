@@ -221,10 +221,12 @@ This section is not meant to be authoritative nor exhaustive. It is meant to gui
 
 ### Known Issues
 - The same account can be logged in at the same time on 2 different devices which can cause issues like joining your own group
+- Please don't mess with the ID's in the URL, it will probably mess something up
 
 ### Suggestions
 - Group staging area can be redone in the front-end and back-end to use a websocket implementation instead of a heartbeat approach.
 - Remove unnecessary end-points that were created in the previous iteration of the project
-- Find a way to check the authorization of the user without calling /self endpoint on every page
+- Create a new way to optimally to check the authorization of the user without calling /self endpoint on every page
+- Do authentication checks for groups
 
 <img src='https://cdn.discordapp.com/attachments/236354463558795264/844545903679373322/dd86814627225cd1bf9b48c7c4b76979274ea71de3a2ca25ba3374ba2286a2cd.png'/>
