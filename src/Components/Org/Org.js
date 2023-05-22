@@ -373,7 +373,7 @@ function Org() {
                 <div className='org-header'>
                     {/* will change this h2 to an input field later */}
                     <h2>{orgInfo.name}</h2>
-                    <img src={edit} />
+                    {/* <img src={edit} /> */}
                 </div>
                 {displayPriority()}
             </div>

@@ -25,6 +25,10 @@
     border-radius: 5em;
 }
 
+.home-header img:hover {
+    cursor: pointer;
+}
+
 .home-teamcards {
     display: flex;
     flex-wrap: wrap;
@@ -43,6 +47,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.home-teamcard:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.15s ease-in;
 }
 
 .home-teamcard p {

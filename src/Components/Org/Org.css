@@ -12,8 +12,7 @@
     gap: 0.3em;
     border-bottom: 3px solid #005855;
     padding-bottom: 0.2em;
-    width: 8em;
-    margin-top: 2em;
+    padding: 2em 0.6em 0 0.6em;
 }
 
 .org-header h2 {
@@ -88,6 +87,10 @@
     border-radius: 10em;
 }
 
+.org-members > div div img:hover {
+    cursor: pointer;
+}
+
 .org-teamagreement {
     margin-top: 2em;
     width: 20em;
@@ -131,6 +134,10 @@
     opacity: 75%;
 }
 
+.org-button:disabled:hover {
+    cursor: default;
+}
+
 .org-check {
     height: 1.7em;
     width: 1.7em;
@@ -163,6 +170,10 @@
 .org-pulse-info > p {
     font-weight: 600;
     text-decoration: underline;
+}
+
+.org-pulse-info > p {
+    cursor: pointer;
 }
 
 .org-pulse-resultsbar {

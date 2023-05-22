@@ -68,7 +68,7 @@ function SignIn() {
             </div>
             <div className='signin-inputs'>
                 <input type='text' placeholder='email' onChange={e => setEmail(e.target.value)} />
-                <input type='text' placeholder='password' onChange={e => setPassword(e.target.value)} />
+                <input type='password' placeholder='password' onChange={e => setPassword(e.target.value)} />
             </div>
             <button onClick={signIn}>Sign in</button>
         </div>
