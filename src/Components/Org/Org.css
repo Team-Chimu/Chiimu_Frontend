@@ -85,6 +85,7 @@
     width: 3.8em;
     height: 3.8em;
     border-radius: 10em;
+    object-fit: cover;
 }
 
 .org-members > div div img:hover {

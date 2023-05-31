@@ -23,6 +23,7 @@
     width: 4em;
     height: 4em;
     border-radius: 5em;
+    object-fit: cover;
 }
 
 .home-header img:hover {
