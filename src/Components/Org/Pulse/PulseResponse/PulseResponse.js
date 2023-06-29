@@ -102,7 +102,7 @@ function PulseResponse() {
                 if (data.status === 'success') {
                     window.location.reload(false)
                 } else {
-                    // console.log(data.error);
+                    console.log(data);
                 }
             })
     }
